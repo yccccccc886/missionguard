@@ -1,0 +1,85 @@
+{
+  "environment": "Local Hardhat EVM",
+  "chainId": 31337,
+  "agentMode": "Scripted signers, no LLM",
+  "generatedAt": "2026-09-19T06:52:41.619Z",
+  "steps": [
+    {
+      "label": "Search service",
+      "status": "confirmed",
+      "transactionHash": "0xeef99d2d1f206972cbc2471585b1bed64ca4c8097f2ee080f00cfdde46fd8a35",
+      "gasUsed": "163712",
+      "spent": "1.5",
+      "remaining": "8.5",
+      "withdrawn": "0.0"
+    },
+    {
+      "label": "Delegated data service",
+      "status": "confirmed",
+      "transactionHash": "0xb393572c4b88d39258bedcd6445af49ddb4fd537efbb193c6a7bcabfeec9bafc",
+      "gasUsed": "143626",
+      "spent": "2.25",
+      "remaining": "7.75",
+      "withdrawn": "0.0"
+    },
+    {
+      "label": "Verification service",
+      "status": "confirmed",
+      "transactionHash": "0xd1414059018014c8e4a35b5bd937d8167f73b27eeceff23649a497fb8a405229",
+      "gasUsed": "129512",
+      "spent": "2.5",
+      "remaining": "7.5",
+      "withdrawn": "0.0"
+    },
+    {
+      "label": "Replay attempt",
+      "status": "simulation-rejected",
+      "error": "RequestAlreadyUsed",
+      "spent": "2.5",
+      "remaining": "7.5",
+      "withdrawn": "0.0"
+    },
+    {
+      "label": "Revoke research subtree",
+      "status": "confirmed",
+      "transactionHash": "0x80f8b83da10ffa6a0c1c2e7803332bfcbde52f762e952a94218b64a10324139a",
+      "gasUsed": "32843",
+      "spent": "2.5",
+      "remaining": "7.5",
+      "withdrawn": "0.0"
+    },
+    {
+      "label": "Child attempts payment",
+      "status": "simulation-rejected",
+      "error": "GrantInactive",
+      "spent": "2.5",
+      "remaining": "7.5",
+      "withdrawn": "0.0"
+    },
+    {
+      "label": "Close mission",
+      "status": "confirmed",
+      "transactionHash": "0xc939991bbab4452a9db4d0b4ae2c21ac6e8012a4fc93c4949a7bdd87e5df8ce6",
+      "gasUsed": "30956",
+      "spent": "2.5",
+      "remaining": "7.5",
+      "withdrawn": "0.0"
+    },
+    {
+      "label": "Recover 7.5 DemoUSD",
+      "status": "confirmed",
+      "transactionHash": "0xb2f4085c3b85d80363936e53ef96260323c9378a9111793df4b0042233aec769",
+      "gasUsed": "85278",
+      "spent": "2.5",
+      "remaining": "0.0",
+      "withdrawn": "7.5"
+    }
+  ],
+  "summary": {
+    "budget": "10",
+    "paid": "2.5",
+    "returned": "7.5",
+    "asset": "DemoUSD",
+    "conservationVerified": true
+  }
+}
