@@ -2,71 +2,71 @@
   "project": "MissionGuard",
   "environment": "Local Hardhat EVM — NOT Avalanche Fuji",
   "chainId": 31337,
-  "generatedAt": "2026-09-19T06:55:36.898Z",
+  "generatedAt": "2026-09-19T07:05:58.302Z",
   "solidity": "0.8.30+commit.73712a01.Emscripten.clang",
-  "sourceHash": "0x01b2caceae2260ee0d02821ad7038978523c0dea2208eb840eb781d6cfb6fc4b",
+  "sourceHash": "0x7cde31552969d33d739f310b9f34efb6082d5b31d85a46d2fde92c5273abe3fc",
   "passed": 31,
   "failed": 0,
   "tests": [
     {
       "name": "valid EIP-712 payment transfers exact amount and updates mission and grant",
       "status": "passed",
-      "durationMs": 34
+      "durationMs": 33
     },
     {
       "name": "unauthorized recipient rejected",
       "status": "passed",
-      "durationMs": 16
+      "durationMs": 15
     },
     {
       "name": "tampered recipient invalidates signature even if allowlisted",
       "status": "passed",
-      "durationMs": 15
+      "durationMs": 14
     },
     {
       "name": "tampered amount invalidates signature",
       "status": "passed",
-      "durationMs": 15
+      "durationMs": 22
     },
     {
       "name": "wrong agent cannot sign another grant",
       "status": "passed",
-      "durationMs": 14
+      "durationMs": 13
     },
     {
       "name": "chain-bound signature rejects another chain",
       "status": "passed",
-      "durationMs": 15
+      "durationMs": 13
     },
     {
       "name": "contract-bound signature rejects another vault",
       "status": "passed",
-      "durationMs": 16
+      "durationMs": 13
     },
     {
       "name": "expired payment rejected at deadline boundary",
       "status": "passed",
-      "durationMs": 16
+      "durationMs": 14
     },
     {
       "name": "same request cannot charge twice",
       "status": "passed",
-      "durationMs": 17
+      "durationMs": 18
     },
     {
       "name": "request ID is shared across agents in the same mission",
       "status": "passed",
-      "durationMs": 18
+      "durationMs": 19
     },
     {
       "name": "zero amount and zero request ID rejected",
       "status": "passed",
-      "durationMs": 16
+      "durationMs": 15
     },
     {
       "name": "mission budget enforced even when agent ceilings overlap",
       "status": "passed",
-      "durationMs": 21
+      "durationMs": 20
     },
     {
       "name": "same-block concurrent competing payments cannot overspend",
@@ -81,22 +81,22 @@
     {
       "name": "per-payment limit is enforced",
       "status": "passed",
-      "durationMs": 14
+      "durationMs": 13
     },
     {
       "name": "delegated payment charges every ancestor exactly once",
       "status": "passed",
-      "durationMs": 19
+      "durationMs": 18
     },
     {
       "name": "siblings share parent ceiling; a new child cannot reset parent spending",
       "status": "passed",
-      "durationMs": 21
+      "durationMs": 23
     },
     {
       "name": "parent revocation invalidates existing descendant signatures",
       "status": "passed",
-      "durationMs": 15
+      "durationMs": 14
     },
     {
       "name": "mission revocation invalidates all signed payments",
@@ -116,17 +116,17 @@
     {
       "name": "delegation cannot widen limit, per-payment ceiling, or expiry",
       "status": "passed",
-      "durationMs": 13
+      "durationMs": 12
     },
     {
       "name": "cross-mission parent grant rejected",
       "status": "passed",
-      "durationMs": 17
+      "durationMs": 14
     },
     {
       "name": "grant depth is bounded to eight",
       "status": "passed",
-      "durationMs": 19
+      "durationMs": 17
     },
     {
       "name": "withdrawal requires revocation or expiry; returns only remainder once",
@@ -141,7 +141,7 @@
     {
       "name": "failed token transfer rolls back all budgets and request consumption",
       "status": "passed",
-      "durationMs": 19
+      "durationMs": 20
     },
     {
       "name": "reentrant token callback cannot execute a second payment",
@@ -151,7 +151,7 @@
     {
       "name": "ERC-1271 contract agent signature is accepted",
       "status": "passed",
-      "durationMs": 18
+      "durationMs": 17
     },
     {
       "name": "cross-mission accounting survives payment and withdrawal",
@@ -161,7 +161,7 @@
     {
       "name": "100 adversarial requests preserve budget and token conservation",
       "status": "passed",
-      "durationMs": 301
+      "durationMs": 279
     }
   ]
 }

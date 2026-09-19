@@ -2,13 +2,13 @@
   "environment": "Local Hardhat EVM",
   "chainId": 31337,
   "agentMode": "Scripted signers, no LLM",
-  "generatedAt": "2026-09-19T06:52:41.619Z",
+  "generatedAt": "2026-09-19T07:06:00.684Z",
   "steps": [
     {
       "label": "Search service",
       "status": "confirmed",
-      "transactionHash": "0xeef99d2d1f206972cbc2471585b1bed64ca4c8097f2ee080f00cfdde46fd8a35",
-      "gasUsed": "163712",
+      "transactionHash": "0x50947f8d297fd543b60fdc851dcefa9d38de146ebd68d4da1e8c2d4129825bef",
+      "gasUsed": "163724",
       "spent": "1.5",
       "remaining": "8.5",
       "withdrawn": "0.0"
@@ -16,7 +16,7 @@
     {
       "label": "Delegated data service",
       "status": "confirmed",
-      "transactionHash": "0xb393572c4b88d39258bedcd6445af49ddb4fd537efbb193c6a7bcabfeec9bafc",
+      "transactionHash": "0x33fffe87b5d6307683d160c1d9c8fe715446aeb002f502624c5abaaf6c772eb4",
       "gasUsed": "143626",
       "spent": "2.25",
       "remaining": "7.75",
@@ -25,8 +25,8 @@
     {
       "label": "Verification service",
       "status": "confirmed",
-      "transactionHash": "0xd1414059018014c8e4a35b5bd937d8167f73b27eeceff23649a497fb8a405229",
-      "gasUsed": "129512",
+      "transactionHash": "0xe648d17201b9d5b6698347b098c7aed18efebaaf1c116f491b931870118e45cd",
+      "gasUsed": "129524",
       "spent": "2.5",
       "remaining": "7.5",
       "withdrawn": "0.0"
@@ -42,7 +42,7 @@
     {
       "label": "Revoke research subtree",
       "status": "confirmed",
-      "transactionHash": "0x80f8b83da10ffa6a0c1c2e7803332bfcbde52f762e952a94218b64a10324139a",
+      "transactionHash": "0x293b89053a3f5fd64ed1df54a6d36e54fe4b79da178925d47c87343df45245d3",
       "gasUsed": "32843",
       "spent": "2.5",
       "remaining": "7.5",
@@ -59,7 +59,7 @@
     {
       "label": "Close mission",
       "status": "confirmed",
-      "transactionHash": "0xc939991bbab4452a9db4d0b4ae2c21ac6e8012a4fc93c4949a7bdd87e5df8ce6",
+      "transactionHash": "0x2fbd0c42be5bfd2958b0ea6960349337c4cccd4ab9a8925c768040b37744db86",
       "gasUsed": "30956",
       "spent": "2.5",
       "remaining": "7.5",
@@ -68,7 +68,7 @@
     {
       "label": "Recover 7.5 DemoUSD",
       "status": "confirmed",
-      "transactionHash": "0xb2f4085c3b85d80363936e53ef96260323c9378a9111793df4b0042233aec769",
+      "transactionHash": "0x143d51cae87298be5cc3c5c077447b217c726d5d958bfa9c4c0cfa5cad3a7967",
       "gasUsed": "85278",
       "spent": "2.5",
       "remaining": "0.0",
