@@ -48,3 +48,27 @@ export function readableError(error: unknown): string {
     return '操作未签名 / Request rejected in wallet';
   return s.slice(0, 450);
 }
+
+// Only decoded MissionGuard policy errors count as a verified rejection.
+// Transport failures, unknown reverts and wallet errors prove no policy result.
+const policyErrors = new Set([
+  'MissionInactive',
+  'GrantInactive',
+  'StalePolicy',
+  'SignatureExpired',
+  'MerchantDenied',
+  'RequestAlreadyUsed',
+  'MissionBudgetExceeded',
+  'GrantBudgetExceeded',
+  'PerPaymentExceeded',
+]);
+export function policyRejection(error: unknown): string | undefined {
+  if (!(error instanceof BaseError)) return;
+  const cause = error.walk((e) => e instanceof ContractFunctionRevertedError);
+  if (
+    cause instanceof ContractFunctionRevertedError &&
+    cause.data?.errorName &&
+    policyErrors.has(cause.data.errorName)
+  )
+    return cause.data.errorName;
+}

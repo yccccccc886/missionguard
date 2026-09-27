@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'MissionGuard — AI 任务金库',
-  description: 'Task-scoped budgets for AI teams on Avalanche.',
+  title: 'MissionGuard — 任务采购与费用凭证',
+  description:
+    'Sourced Avalanche task results, service orders and verifiable spending boundaries.',
   icons: { icon: '/favicon.svg' },
 };
 

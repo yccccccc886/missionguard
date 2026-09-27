@@ -7,36 +7,39 @@ MissionGuard
 Identity, Trust, AI Infrastructure / 身份、信任与 AI 基础设施
 
 ## One sentence
-MissionGuard gives an AI team a shared on-chain task budget, with delegated limits and revocation that apply to every sub-agent.
+MissionGuard connects an AI workflow's task result to service orders, verifiable payment receipts and a shared on-chain budget.
 
 ## 中文简介
-当一个 AI 任务拆给多个 Agent 后，单独限制每个钱包并不能直接表达“整个任务最多花多少钱”。MissionGuard 把资金和授权绑定到任务：每笔付款同时检查任务总额、当前 Agent 与所有上级额度，并验证收款人、有效期和签名。用户撤销上级后，下级无法绕过撤销继续付款；任务结束后可收回余款。项目提供可操作的攻防实验室、真实合约测试和 Fuji 钱包交互入口。
+MissionGuard 为 AI 工作流提供任务采购与费用凭证。首个场景是 Avalanche 合约活动简报：读取真实链上事件，保存带区块范围、来源与数据哈希的报告，再把服务订单绑定到任务预算。付款需满足共享任务上限及所有上级授权；同一订单重试不能再次扣款，已付款服务可单独重试获取结果。用户可以停止一个授权分支，让独立分支继续执行，并在任务结束后收回余款。当前已有真实公开链数据和本地 EVM 采购流程验证，Fuji 结算与真实模型调用仍待完成。
 
 ## English description
-MissionGuard is a task-scoped ERC20 vault for agent teams. A payment must satisfy the shared mission ceiling and every ancestor's cumulative and per-payment limits. EIP-712 signatures bind payments to the task, grant, recipient, amount, request ID, deadline and current policy. Mission-wide idempotency prevents duplicate charges across agents. Revoking a grant disables the entire subtree, and the owner can recover unused funds after mission revocation or expiry. An interactive attack lab and reproducible EVM tests make the policy directly inspectable.
+MissionGuard connects task results, service orders and spending permissions for AI workflows. Its first use case produces a sourced Avalanche contract activity brief from real public-chain data. Orders bind the report, service, mission, settlement chain and vault. EIP-712 payments enforce the shared mission ceiling and every ancestor's limits; retrying the same order in the same mission cannot charge again. A fulfillment endpoint verifies exact successful payment receipts and supports result recovery without another payment. Owners can stop one branch while independent work continues and recover unused funds. Public data reads and a local-EVM procurement flow are working; Fuji settlement and live model calls remain pending.
 
 ## Problem and intended users
 Agent-workflow developers need to delegate purchases without handing each worker an unrestricted wallet or relying exclusively on a centralized coordinator. The initial use case is a research task split into search, data retrieval and verification. Product demand remains to be validated with developers; no customer or revenue claims are made.
 
 ## Technical contribution
-The focus is hierarchical task accounting: each leaf payment atomically charges every ancestor, while sibling ceilings may overlap under one funded mission. New child grants cannot reset already-used parent budgets. Subtree revocation checks ancestry at execution, including previously signed payments. Policy epochs invalidate signatures after recipient changes. The contract supports EOA and ERC-1271 agents and permissionless relay to a signature-bound recipient.
+The implementation combines report-bound orders, exact receipt validation, recoverable delivery and hierarchical task accounting. Each leaf payment atomically charges every ancestor; policy epochs invalidate old recipient authorizations. The contract supports EOA and ERC-1271 agents. Chained delegation and spending caps also exist in other products: no protocol-first claim is made. The product hypothesis is that placing deliverables and receipts in one workflow reduces integration and debugging effort; this still needs developer validation.
 
 ## Avalanche usage
-The project targets Avalanche Fuji C-Chain, chain ID 43113. The website can deploy a DemoUSD token and MissionGuard vault through Core or MetaMask, create a funded mission, relay an agent-signed payment, simulate rejected requests, revoke and withdraw. Include the actual deployment address and confirmed receipt links only after deployment succeeds.
+Research reads use Avalanche's official C-Chain or Fuji RPC, with a fixed 96-block range and same-provider consistency reread. Settlement targets Fuji, chain ID 43113. The browser supports task creation, parent-child grants, branch revocation, order payment and refunds. Include deployment and confirmed receipt links only after Fuji deployment succeeds. No custom Avalanche L1 or mainnet transaction execution is claimed.
 
 ## Current evidence
+- Real public-chain sample: `public/evidence/research-example.json`; 161 emitted logs across 85 distinct transactions in the recorded 96-block sample, not all contract calls or users.
+- Report-bound local purchase flow: `npm run demo:procurement`; 2 DemoUSD spent and 8 recovered, with duplicate-order rejection and an independent branch continuing after parent revocation.
+- Application and procurement regression suite: `npm run test:ui`, 20 tests.
 - Local EVM contract results: `public/evidence/contract-tests.json`.
 - Reproducible signed workflow: `npm run demo:local`, output `public/evidence/local-demo.json`.
 - Seven browser attack scenarios, explicitly labelled simulations.
 - Fuji deployment status: `public/evidence/fuji-deployment.json`. Public-chain deployment currently awaits test AVAX.
 
 ## Disclosure
-The agent demonstration uses deterministic scripted signers. No live LLM or paid API purchase is claimed. DemoUSD is an unrestricted test token, not Circle USDC. Settlement is custom EIP-712, not x402. Tests are authored by the project and do not constitute an independent audit. Development is AI-assisted. The participant should confirm the organizer's AI-use and eligibility rules before submission.
+Payment agents use deterministic scripted signers. An optional model-interpretation adapter exists but has no configured credentials or verified live calls; it cannot sign or pay. Demo services are self-operated, and DemoUSD is an unrestricted valueless test token, not Circle USDC. No commercial purchase, external customer or autonomous model purchasing is claimed. Settlement is custom EIP-712, not x402. Tests are project-authored, not an independent audit. Development is AI-assisted. Confirm the organizer's eligibility and AI-use rules before submission.
 
 ## Submission fields still requiring the entrant
 Team/member identity and contact details, registration approval, public GitHub repository URL, final publicly accessible demo URL, and confirmed Fuji deployment evidence. The private hosted preview is not suitable as the judges' public demo link until sharing is changed.
 
-## Official sources checked 2026-09-19
+## Official sources checked 2026-09-24
 - Event and scoring: https://build.avax.network/events/093982ed-7037-4765-a066-56a5d3cff8cb
 - Registration: https://luma.com/umdyirg3
 - Handbook linked by registration: https://my.feishu.cn/wiki/IlZVwrU5di0eetkZsdAcK3hSnqd

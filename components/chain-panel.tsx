@@ -38,8 +38,20 @@ import {
   guardBytecode,
   demoTokenBytecode,
 } from '@/lib/generated/contracts';
-import { paymentData, readableError, type Payment } from '@/lib/guard-sdk';
+import {
+  paymentData,
+  readableError,
+  policyRejection,
+  type Payment,
+} from '@/lib/guard-sdk';
 import type { Language } from '@/lib/demo-engine';
+import {
+  orderId,
+  services,
+  type Brief,
+  type Service,
+  type ServiceReceipt,
+} from '@/lib/procurement';
 const chain = avalancheFuji;
 const rpc = createPublicClient({
   chain,
@@ -75,7 +87,15 @@ type Manifest = {
   token?: Address;
   deployer?: string;
 };
-export default function ChainPanel({ lang }: { lang: Language }) {
+export default function ChainPanel({
+  lang,
+  brief,
+  onReceipt,
+}: {
+  lang: Language;
+  brief?: Brief;
+  onReceipt: (r: ServiceReceipt) => void;
+}) {
   const t = (zh: string, en: string) => (lang === 'zh' ? zh : en);
   const [account, setAccount] = useState<Address>();
   const [guard, setGuard] = useState<Address>();
@@ -88,6 +108,10 @@ export default function ChainPanel({ lang }: { lang: Language }) {
   const [message, setMessage] = useState('');
   const [contractInput, setContractInput] = useState('');
   const [manifest, setManifest] = useState<Manifest>();
+  const [selectedAgent, setSelectedAgent] = useState(1);
+  const [branchRevoked, setBranchRevoked] = useState(false);
+  const [recoveryHash, setRecoveryHash] = useState('');
+  const pendingOrders = useRef(new Map<string, Hex>());
   const sessions = useRef<PrivateKeyAccount[]>([]);
   const grants = useRef<bigint[]>([]);
   const lastPayment = useRef<{ p: Payment; sig: Hex } | undefined>(undefined);
@@ -168,8 +192,13 @@ export default function ChainPanel({ lang }: { lang: Language }) {
           if (args.method === 'eth_sendTransaction') {
             const liveChain = await p.request({ method: 'eth_chainId' });
             const liveAccounts = await p.request({ method: 'eth_accounts' });
-            if (Number(liveChain) !== 43113 || liveAccounts[0]?.toLowerCase() !== a.toLowerCase()) {
-              throw Error('Wallet changed during setup. Reconnect before continuing.');
+            if (
+              Number(liveChain) !== 43113 ||
+              liveAccounts[0]?.toLowerCase() !== a.toLowerCase()
+            ) {
+              throw Error(
+                'Wallet changed during setup. Reconnect before continuing.',
+              );
             }
           }
           return p.request(args);
@@ -242,6 +271,7 @@ export default function ChainPanel({ lang }: { lang: Language }) {
     sessions.current = [];
     grants.current = [];
     lastPayment.current = undefined;
+    setBranchRevoked(false);
     setSnapshot(undefined);
     setMissionId('');
     setMessage(
@@ -335,7 +365,7 @@ export default function ChainPanel({ lang }: { lang: Language }) {
         args: [
           budget,
           expiry,
-          keccak256(toHex('MissionGuard browser self-test v1')),
+          brief?.id ?? keccak256(toHex('MissionGuard browser self-test v1')),
         ],
       }),
       t('锁定任务预算', 'Fund mission'),
@@ -353,6 +383,7 @@ export default function ChainPanel({ lang }: { lang: Language }) {
     }
     if (!id) throw Error('Missing mission event');
     setMissionId(String(id));
+    setBranchRevoked(false);
     sessions.current = [];
     grants.current = [];
     lastPayment.current = undefined;
@@ -382,9 +413,9 @@ export default function ChainPanel({ lang }: { lang: Language }) {
           functionName: 'createGrant',
           args: [
             id,
-            0n,
+            i === 1 ? grants.current[0] : 0n,
             keys[i].address,
-            parseUnits(String([5, 3, 2][i]), 6),
+            parseUnits(String([8, 3, 2][i]), 6),
             parseUnits('2', 6),
             expiry,
           ],
@@ -413,6 +444,7 @@ export default function ChainPanel({ lang }: { lang: Language }) {
   }
   async function pay(
     kind: 'normal' | 'overspend' | 'recipient' | 'replay' | 'old',
+    agentIndex = selectedAgent,
   ) {
     if (!guard || !snapshot) throw Error('Load a mission first');
     const { wc, account: a } = await wallet();
@@ -424,7 +456,7 @@ export default function ChainPanel({ lang }: { lang: Language }) {
         );
       ({ p, sig } = lastPayment.current);
     } else {
-      if (!sessions.current[0] || !grants.current[0])
+      if (!sessions.current[agentIndex] || !grants.current[agentIndex])
         throw Error(
           t(
             '本页无 Agent 签名密钥，请创建新任务。',
@@ -440,7 +472,7 @@ export default function ChainPanel({ lang }: { lang: Language }) {
       const block = await rpc.getBlock();
       p = {
         missionId: BigInt(missionId),
-        grantId: grants.current[0],
+        grantId: grants.current[agentIndex],
         recipient:
           kind === 'recipient'
             ? '0x000000000000000000000000000000000000dEaD'
@@ -450,7 +482,7 @@ export default function ChainPanel({ lang }: { lang: Language }) {
         deadline: block.timestamp + 600n,
         epoch: m[5],
       };
-      sig = await sessions.current[0].signTypedData(
+      sig = await sessions.current[agentIndex].signTypedData(
         paymentData(guard, 43113, p),
       );
     }
@@ -464,13 +496,19 @@ export default function ChainPanel({ lang }: { lang: Language }) {
         account: a,
       });
     } catch (e) {
+      const code = policyRejection(e);
+      if (!code)
+        throw Error(
+          t('未能验证付款规则：', 'Could not verify payment policy: ') +
+            readableError(e),
+        );
       log({
         label: t(
           '链上模拟拒绝（未广播交易）',
           'On-chain simulation rejected (not broadcast)',
         ),
         status: 'info',
-        detail: readableError(e),
+        detail: code,
       });
       setMessage(
         t(
@@ -515,6 +553,151 @@ export default function ChainPanel({ lang }: { lang: Language }) {
     );
     await refresh();
   }
+  async function revokeBranch() {
+    if (!guard || !grants.current[0]) throw Error('Create a mission first');
+    const { wc, account: a } = await wallet();
+    await confirmed(
+      await wc.writeContract({
+        account: a,
+        address: guard,
+        abi: guardAbi,
+        functionName: 'revokeGrant',
+        args: [grants.current[0]],
+      }),
+      t('撤销研究分支及其下级', 'Revoke research branch and descendants'),
+    );
+    setBranchRevoked(true);
+    await refresh();
+  }
+  async function fulfill(service: Service, transactionHash?: Hex) {
+    if (!brief || !guard || !missionId)
+      throw Error('Select a report and mission first.');
+    const response = await fetch('/api/fulfill', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        taskId: brief.id,
+        service,
+        guard,
+        missionId,
+        transactionHash,
+      }),
+    });
+    const data = (await response.json()) as ServiceReceipt & { error?: string };
+    if (!response.ok)
+      throw Error(
+        data.error ??
+          'Delivery unavailable. Retry delivery without paying again.',
+      );
+    onReceipt(data);
+    log({
+      label: t('服务交付已验证', 'Service delivery verified'),
+      status: 'confirmed',
+      hash: data.transactionHash,
+      detail: services[service].label,
+    });
+    setMessage(
+      t(
+        '费用凭证已保存，可回到任务页导出。',
+        'Receipt saved. Return to the task page to export.',
+      ),
+    );
+  }
+  async function purchase(service: Service) {
+    if (
+      !brief ||
+      !guard ||
+      !snapshot ||
+      !manifest?.deployer ||
+      manifest.status !== 'deployed' ||
+      guard.toLowerCase() !== manifest.guard?.toLowerCase()
+    )
+      throw Error(
+        t('请先载入项目已部署金库。', 'Load the deployed project vault first.'),
+      );
+    if (snapshot[7] !== brief.id)
+      throw Error(
+        t(
+          '当前任务不属于这份报告，请为报告创建新任务。',
+          'This mission belongs to another report; create a new mission.',
+        ),
+      );
+    if (merchant.toLowerCase() !== manifest.deployer.toLowerCase())
+      throw Error(
+        t(
+          '服务收款方必须是项目的演示服务地址。',
+          'Use the project demo service recipient.',
+        ),
+      );
+    const id = orderId(brief.id, service, guard, missionId);
+    const alreadyPaid = await rpc.readContract({
+      address: guard,
+      abi: guardAbi,
+      functionName: 'usedRequests',
+      args: [BigInt(missionId), id],
+    });
+    if (alreadyPaid) {
+      await fulfill(service, pendingOrders.current.get(id));
+      return;
+    }
+    // A broadcast with uncertain outcome is reconciled, never replaced with a new order.
+    const pending = pendingOrders.current.get(id);
+    if (pending) {
+      await confirmed(
+        pending,
+        t('确认已有订单付款', 'Confirm existing order payment'),
+      );
+      await fulfill(service, pending);
+      return;
+    }
+    const index = services[service].agentIndex;
+    if (!sessions.current[index] || !grants.current[index])
+      throw Error(
+        t(
+          '签名会话已丢失；已付款的订单可恢复交付，新付款请创建新任务。',
+          'Signing session missing. Recover paid orders, or create a new mission for new payments.',
+        ),
+      );
+    const { wc, account: a } = await wallet();
+    const m = await rpc.readContract({
+      address: guard,
+      abi: guardAbi,
+      functionName: 'missions',
+      args: [BigInt(missionId)],
+    });
+    const block = await rpc.getBlock();
+    const payment: Payment = {
+      missionId: BigInt(missionId),
+      grantId: grants.current[index],
+      recipient: manifest.deployer as Address,
+      amount: BigInt(services[service].units),
+      requestId: id,
+      deadline: block.timestamp + 600n,
+      epoch: m[5],
+    };
+    const signature = await sessions.current[index].signTypedData(
+      paymentData(guard, 43113, payment),
+    );
+    await rpc.simulateContract({
+      address: guard,
+      abi: guardAbi,
+      functionName: 'executePayment',
+      args: [payment, signature],
+      account: a,
+    });
+    const hash = await wc.writeContract({
+      account: a,
+      address: guard,
+      abi: guardAbi,
+      functionName: 'executePayment',
+      args: [payment, signature],
+    });
+    pendingOrders.current.set(id, hash);
+    setRecoveryHash(hash);
+    await confirmed(hash, t('服务订单付款', 'Service order payment'));
+    await refresh();
+    await fulfill(service, hash);
+  }
   async function withdraw() {
     if (!guard) throw Error('Load a vault');
     const { wc, account: a } = await wallet();
@@ -552,6 +735,110 @@ export default function ChainPanel({ lang }: { lang: Language }) {
             'Use valueless test AVAX for gas. Self-tests use DemoUSD, not Circle USDC. The default recipient is your wallet; no external service is purchased.',
           )}
         </p>
+        {brief && (
+          <div className="task-bill">
+            <h3>
+              {t('已选报告的采购任务', 'Procurement for the selected report')}
+            </h3>
+            <p className="notice break-all">
+              Task: {brief.id}
+              <br />
+              {t(
+                '创建任务时绑定此报告。服务结算需使用项目金库及下方固定收款地址。',
+                'New missions bind this report. Service settlement requires the project vault and fixed recipient below.',
+              )}
+            </p>
+            {manifest?.status === 'deployed' && manifest.deployer ? (
+              <Button
+                variant="outline"
+                disabled={disabled}
+                onClick={() =>
+                  act('Use service vault', async () => {
+                    await attach(manifest.guard);
+                    setMerchant(manifest.deployer!);
+                  })
+                }
+              >
+                {t(
+                  '使用项目服务金库与收款地址',
+                  'Use project service vault & recipient',
+                )}
+              </Button>
+            ) : (
+              <p className="notice">
+                {t(
+                  '项目金库尚待 Fuji 部署。可先使用报告和规则模拟。',
+                  'Project vault awaits Fuji deployment. Reports and policy simulations are available.',
+                )}
+              </p>
+            )}
+            <div className="action-row wrap">
+              {(['activity', 'verify'] as const).map((service) => (
+                <Button
+                  key={service}
+                  disabled={
+                    disabled ||
+                    !owner ||
+                    !brief ||
+                    manifest?.status !== 'deployed'
+                  }
+                  onClick={() =>
+                    act('Procure ' + service, () => purchase(service))
+                  }
+                >
+                  {services[service].label} ·{' '}
+                  {Number(services[service].units) / 1e6} DemoUSD
+                </Button>
+              ))}
+            </div>
+            <details>
+              <summary>
+                {t(
+                  '恢复已付款的服务结果（不再付款）',
+                  'Recover paid service results (no new payment)',
+                )}
+              </summary>
+              <label htmlFor="payment-hash" className="field-label">
+                {t(
+                  '交易哈希（可选；未填写时查询最近 2000 块）',
+                  'Transaction hash (optional; searches latest 2,000 blocks if empty)',
+                )}
+              </label>
+              <Input
+                id="payment-hash"
+                value={recoveryHash}
+                onChange={(e) => setRecoveryHash(e.target.value)}
+                placeholder="0x…"
+              />
+              <div className="action-row wrap">
+                {(['activity', 'verify'] as const).map((service) => (
+                  <Button
+                    variant="outline"
+                    key={service}
+                    disabled={
+                      disabled ||
+                      !snapshot ||
+                      !guard ||
+                      (!!recoveryHash &&
+                        !/^0x[0-9a-f]{64}$/i.test(recoveryHash))
+                    }
+                    onClick={() =>
+                      act('Recover ' + service, () =>
+                        fulfill(
+                          service,
+                          recoveryHash ? (recoveryHash as Hex) : undefined,
+                        ),
+                      )
+                    }
+                  >
+                    {t('恢复：', 'Recover: ')}
+                    {services[service].label}
+                  </Button>
+                ))}
+              </div>
+            </details>
+          </div>
+        )}
         <div className="chain-steps">
           <div>
             <span className="step-index">01</span>
@@ -704,6 +991,44 @@ export default function ChainPanel({ lang }: { lang: Language }) {
           </div>
         )}
         <div className="action-row wrap">
+          <label htmlFor="active-agent">
+            {t('执行分支', 'Execution branch')}
+          </label>
+          <select
+            id="active-agent"
+            className="task-select"
+            value={selectedAgent}
+            disabled={disabled}
+            onChange={(e) => setSelectedAgent(Number(e.target.value))}
+          >
+            <option value={0}>
+              {t('研究主管 / 根授权 8', 'Research / root ceiling 8')}
+            </option>
+            <option value={1}>
+              {t('└ 数据采集 / 子授权 3', '└ Data / child ceiling 3')}
+            </option>
+            <option value={2}>
+              {t(
+                '独立核对 / 根授权 2',
+                'Independent verification / root ceiling 2',
+              )}
+            </option>
+          </select>
+        </div>
+        {!!grants.current.length && (
+          <p className="notice">
+            {t(
+              '权限树：研究主管 → 数据采集；独立核对另设根授权。上级额度由自身与下级共享，不是额外余额。',
+              'Tree: research → data; verification has an independent root. Parent ceilings are shared with descendants, not additional balances.',
+            )}{' '}
+            {branchRevoked &&
+              t(
+                '研究分支已撤销；可以测试子授权拒绝与独立分支付款。',
+                'Research revoked. Test child rejection and independent branch payment.',
+              )}
+          </p>
+        )}
+        <div className="action-row wrap">
           <Button
             disabled={disabled || !snapshot || !sessions.current.length}
             onClick={() => act('Pay', () => pay('normal'))}
@@ -725,6 +1050,19 @@ export default function ChainPanel({ lang }: { lang: Language }) {
           ))}
         </div>
         <div className="action-row wrap">
+          <Button
+            variant="outline"
+            disabled={
+              disabled ||
+              !owner ||
+              !grants.current[0] ||
+              branchRevoked ||
+              snapshot?.[6]
+            }
+            onClick={() => act('Revoke branch', revokeBranch)}
+          >
+            {t('停止研究分支', 'Stop research branch')}
+          </Button>
           <Button
             variant="destructive"
             disabled={disabled || !owner || snapshot?.[6]}

@@ -1,38 +1,27 @@
-# Three-minute demo and pitch
+# Three-minute demo — procurement revision, 2026-09-27
 
-## 0:00–0:25 — Problem
-“如果我给 AI 团队十美元做一次研究，把搜索、数据和核验交给不同 Agent，怎么保证总共只花十美元？任务拆得越细，单个钱包的限额越难表达整个任务的边界。MissionGuard 把预算和授权放在同一个链上任务里。”
+## 0:00–0:25 — A concrete task
+“让一个 AI 工作流生成 Avalanche 合约活动简报，我们希望知道：交付了什么，钱花在哪里，出问题后能否只停掉一个分支。MissionGuard 把报告、服务订单和预算权限放在同一个流程里。”
 
-## 0:25–0:55 — Normal workflow
-Open the task tab and run the full browser demo. State explicitly: “这是交互模拟，接下来会展示真实合约证据。” It pays 1.5, 0.75 and 0.25, rejects a duplicate, revokes and returns 7.5. Explain that rejected payments do not consume the token budget.
+## 0:25–1:05 — Real result first
+Open 任务与成果. Use the recorded case for a stable sample, or generate a new live report. Show the contract address, fixed block window and transaction links. Download the Markdown report. Say: “这里是真实公开链数据，统计由确定性程序执行；当前尚未配置真实模型。” The stored example has 161 logs across 85 distinct transactions. New live runs will differ. Do not call these users, all calls or total trading volume.
 
-## 0:55–1:25 — Two differentiators
-Open the race scenario: two agents each request six against a shared ten. Only one can fit. Then open parent revocation: a child's existing authorization fails after revoking its parent. Explain that child limits are ceilings, not reserved balances. No “first ever” claim.
+## 1:05–1:45 — Orders and recoverability
+Show the 1.5 DemoUSD data order and 0.5 DemoUSD verification order. Explain: “这是自建演示服务，测试币没有价值。免费报告不是已付款证明。同一任务的同一订单使用固定请求 ID，重试不能再次扣款；付款与结果交付分开记录。”
+If Fuji is not deployed, keep the UI visibly unsettled. Show the local procurement execution JSON from the Evidence tab and identify it as a local EVM run.
 
-## 1:25–2:05 — Contract evidence
-Show the Evidence tab and the same-block concurrency test. Open `local-demo.json` or run `npm run demo:local`: it executes real Solidity with EIP-712 signers on a local EVM. Distinguish local execution hashes from public Fuji transactions.
+## 1:45–2:20 — Stop one branch
+Run `npm run demo:procurement` before recording and show its trace: the data child pays; a duplicate order is rejected; revoking the research parent invalidates its child; the independent verification branch still pays; task closure returns 8 of the original 10 DemoUSD. Local transaction hashes are not public explorer receipts.
+Once Fuji is deployed, replace this segment with the same browser workflow using actual confirmed receipt links. Pre-create the task to avoid spending the entire pitch on wallet confirmations. Do not call a simulation a broadcast rejected transaction.
 
-Once Fuji is funded and deployed, replace this segment with the real wallet flow: load the project vault, create a 10 DemoUSD task, execute one payment, simulate replay rejection, revoke, verify old permission fails, and withdraw. Pre-create the task before the live pitch to avoid many wallet confirmations. Show one confirmed receipt on the testnet explorer. Never describe an RPC simulation as a broadcast transaction.
+## 2:20–2:45 — Why on-chain
+“资金边界在付款执行时检查。多个执行者独立提交请求，也要遵守同一任务和祖先额度。Avalanche 提供实际数据来源，Fuji 是我们验证付款的目标环境。” Show the 31 contract tests and current deployment status. State the status honestly.
 
-## 2:05–2:35 — Why a contract and why Avalanche
-“多个执行者可以独立提交付款，但任务总额和授权树由同一份合约核算。我们选择 Avalanche Fuji 验证这个资金边界，评委可以查看合约地址和交易回执。” If Fuji evidence is still unavailable, say it is the target environment and show the deployment workflow, not a claim of completed deployment.
+## 2:45–3:00 — Product boundary
+“链式委托不是我们首创。我们把任务结果、费用凭证和失败恢复做成可操作流程。它不保证服务质量，也不能撤回已确认付款。下一步验证开发者能否轻松接入自己的工作流。”
 
-## 2:35–3:00 — Scope and next step
-“这个版本验证的是付款权限，不判断 AI 答案质量。下一步把它接到真实 Agent 服务采购流程，并验证开发者是否愿意用任务预算替代共享私钥。今天已经能检验共享预算、层级授权和撤销后的资金回收。”
-
-## Likely judge questions
-
-**Can an injected agent still spend money?** Yes, within its remaining permissions at allowed recipients. The vault bounds loss; it does not detect prompt injection or verify intent.
-
-**Why not one cap per wallet?** A mission spans multiple agents. Hierarchical accounting enforces the shared task cap and ancestor limits even when workers independently relay transactions.
-
-**Does revocation win against a pending payment?** No guaranteed ordering. Revocation blocks payments executed after it. Already settled payments are final.
-
-**Is it x402?** No. This version uses custom EIP-712 settlement. Interoperability is future work.
-
-**Is it a real LLM agent?** The reproducible demo uses scripted signers. The contract accepts signatures regardless of how the agent chose an action.
-
-**Is it production-ready?** No. It is a hackathon prototype with adversarial tests, not an independently audited custody product.
-
-## Recording checklist
-Use a clean browser with sufficient text size, start from a reset task, and record the sequence above without displaying keys or wallet recovery phrases. Keep the mode labels visible. Show real receipt links only when confirmed. Record one full take and export a 1080p MP4. The script is prepared; an actual screen recording has not yet been produced.
+## Recording and submission gates
+- Actual video still needs recording; this file is a script, not a video deliverable.
+- Use `deliverables/MissionGuard-Pitch-v2.pptx`; the earlier Ready deck describes the original positioning.
+- Fuji test AVAX, confirmed on-chain receipts, actual model call validation and independent developer trials remain pending.
+- Keep source and site private until the entrant explicitly changes that choice.

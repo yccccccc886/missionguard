@@ -1,6 +1,8 @@
 # MissionGuard
 
-**Task budgets for AI teams on Avalanche.** A non-upgradeable ERC20 vault with delegated spending limits, atomic shared budgets, and subtree revocation.
+**Task procurement and receipts for AI workflows on Avalanche.** Inspect a real contract activity report, bind it to a funded mission, and reconcile service orders with exact payment receipts.
+
+2026-09-27 update: the primary experience now reads real Avalanche logs, saves immutable reports in R2, exports Markdown/JSON, and supports report-bound service orders. A local EVM integration demonstrates paying 2 DemoUSD, rejecting duplicate charges, stopping a parent branch while an independent branch continues, and recovering 8 DemoUSD. Fuji deployment and live model credentials remain pending. Demo services are self-operated; there are no claims of external customers or commercial payments.
 
 一个任务可以有多个 Agent 和多层子任务。每次付款都必须同时满足任务总预算、当前 Agent 及所有上级的累计额度、单笔上限、收款白名单、到期时间和签名版本。撤销上级会让所有后代的待执行付款失效。
 
@@ -14,6 +16,7 @@ npm run contracts:compile
 npm run test:contracts
 npm run test:ui
 npm run demo:local
+npm run demo:procurement
 npm run dev
 ```
 
@@ -34,7 +37,25 @@ Open the printed local URL. The site supports Chinese and English.
 
 Read `public/evidence/contract-tests.json` for test results and source fingerprint. Run `npm run demo:local` to regenerate `public/evidence/local-demo.json`: 10 DemoUSD funded, 2.5 paid, 7.5 recovered. These are **real contract executions on a local EVM**, not Fuji receipts. Local transaction hashes have no public explorer link.
 
-The browser simulator is an educational state machine, not cryptographic validation. The agents are deterministic signers, not a live language model. No external paid API is purchased. EIP-712 payments are a custom protocol, **not an x402 implementation**. The vault cannot determine whether a service delivered useful output. Automated tests are not an independent audit.
+The browser simulator is an educational state machine, not cryptographic validation. Payment agents are deterministic signers. Optional SiliconFlow interpretation has a server-side adapter, disabled until configured and not yet verified with a live model. It does not control payments. EIP-712 payments are a custom protocol, **not an x402 implementation**. The vault cannot determine whether a service delivered useful output. Automated tests are not an independent audit.
+
+## Real-data and order workflow
+
+1. Generate an Avalanche contract activity brief, or open the recorded example. Reads use a fixed 96-block window ending two blocks before the observed head. A same-provider reread checks consistency; this is not an independent audit or a guarantee of complete activity coverage.
+2. The task ID commits to network, address, block range and end-block hash. Reports and verified receipts persist in Site R2 storage. Public blockchain data is not treated as private user content.
+3. Once the project vault is deployed, load its fixed service recipient and create a mission bound to the report ID. The data child has a 3-unit ceiling under an 8-unit parent; verification has its own 2-unit root. The total mission ceiling is 10.
+4. Service orders cost 1.5 and 0.5 **valueless DemoUSD**. Their request IDs bind task, service, vault, settlement chain and mission. Retrying the same order in the same mission cannot charge again. A fresh mission or distinct report creates a different order.
+5. The fulfillment endpoint checks the trusted deployed vault, mission report binding, successful Fuji receipt, recipient, exact amount and request ID. A confirmed transfer and delivered result are separate states. Retrying fulfillment never submits a transaction. Recent lost receipts can be located in the last 2,000 blocks; older ones require the transaction hash.
+
+The free report preview is deliberately available before settlement. Testnet payment is a demonstration of procurement accounting, not a commercial paywall. RPC failures are not labeled policy rejections. Local integration evidence is in `public/evidence/procurement-local.json`.
+
+## Optional model interpretation
+
+Use a model currently marked **free** in your SiliconFlow account; model availability and rate limits can change. Run `npm run model:configure` in an interactive terminal. The key is entered invisibly and saved only to ignored `.dev.vars`. Restart the local preview. Existing secret files are never overwritten. For hosting, configure the same key as a Site secret separately; do not commit or upload `.dev.vars`.
+
+The adapter sends only bounded public report facts to the fixed SiliconFlow endpoint, limits output to 500 tokens, caches successful interpretations and requires a platform-authenticated user. Anonymous visitors cannot invoke it. It is disabled by default, has no signing keys or payment tools, and is not an autonomous purchasing agent. Cache misses made concurrently can still consume multiple provider calls; do not enable a paid model without a separate usage limit.
+
+See `docs/model-setup.md` for setup and `docs/STATUS.md` for remaining submission gates.
 
 Fuji deployment status is recorded in `public/evidence/fuji-deployment.json`. A `not-deployed` status means public-chain evidence is still pending. The site can also deploy a personal test vault through Core or MetaMask.
 

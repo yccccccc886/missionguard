@@ -48,4 +48,6 @@ output/
 !.env.example
 /.sites-runtime/
 /.codex-finalizer/
+.dev.vars
+.dev.vars.*
 *.tar.gz

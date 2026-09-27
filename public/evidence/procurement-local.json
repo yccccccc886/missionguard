@@ -1,0 +1,85 @@
+{
+  "environment": "Local Hardhat EVM — NOT Avalanche Fuji",
+  "chainId": 31337,
+  "generatedAt": "2026-09-27T10:45:54.577Z",
+  "taskId": "0x6748e539afc0e969a654073b04ccb2471af1c4f5388cd001183af17c5d94eb7e",
+  "dataChainId": 43114,
+  "execution": "Scripted signers; real public data; no LLM",
+  "steps": [
+    {
+      "label": "Mint 10 DemoUSD",
+      "status": "local-confirmed",
+      "hash": "0x1b8605e61dfde1296fc975587752e1e6944632b6d5c00f202eb50276b9fdc7f0"
+    },
+    {
+      "label": "Approve mission",
+      "status": "local-confirmed",
+      "hash": "0x30895039cdb7334d8a3656c0b1b4d956775fabd6e9f77bdf62b2d03ee9d6d58b"
+    },
+    {
+      "label": "Bind report to mission",
+      "status": "local-confirmed",
+      "hash": "0x1474abdc2af2637a1e22cb14a80b18207cea6544f6d6b1f7fc577c479869a5af"
+    },
+    {
+      "label": "Allow demo service",
+      "status": "local-confirmed",
+      "hash": "0x39db46b603228a6677a5695f30b196d8e3f5d2507e7700671ac864febaea875d"
+    },
+    {
+      "label": "Research root",
+      "status": "local-confirmed",
+      "hash": "0x15da449dd4eaf43c3ebe00263c6e20b45f1422ddf162a7a2bb9cfe4f2dd00810"
+    },
+    {
+      "label": "Data child",
+      "status": "local-confirmed",
+      "hash": "0xbbc796e6732774e4405dc3cdcb8a42b17b18a9c40dbdfbaaa73e92c60e722fda"
+    },
+    {
+      "label": "Independent verification root",
+      "status": "local-confirmed",
+      "hash": "0x4861a7c8ab3a6dd0b54da7539fc551b0608fbe32754e6912820ac3bdc27c7706"
+    },
+    {
+      "label": "Data order delivered and receipt matched",
+      "status": "local-confirmed",
+      "hash": "0x995200bc779b5c41fd0c105756bb7827f07531824b17fa288432f342f9697cc3"
+    },
+    {
+      "label": "Same order cannot charge twice",
+      "status": "local-simulation-rejected",
+      "code": "RequestAlreadyUsed"
+    },
+    {
+      "label": "Stop research branch",
+      "status": "local-confirmed",
+      "hash": "0x6ae4c8d85911515c6a499c7be2298e483b88fa202864edbd122a770b2c74f1c7"
+    },
+    {
+      "label": "Descendant loses authority",
+      "status": "local-simulation-rejected",
+      "code": "GrantInactive"
+    },
+    {
+      "label": "Independent verification still pays",
+      "status": "local-confirmed",
+      "hash": "0x5ae0d9129f9cf715223751f47532ceeaaee99dfeea0303279317adbd2f4710db"
+    },
+    {
+      "label": "Close mission",
+      "status": "local-confirmed",
+      "hash": "0x4ea7203d797e43d10a160cf561efc52b33227710ff5d176263fc22e503e09a97"
+    },
+    {
+      "label": "Recover unused 8 DemoUSD",
+      "status": "local-confirmed",
+      "hash": "0xfccaf59046fa9dabd1e84d242456e7807a6619720d3da82f7d94c4f025d30270"
+    }
+  ],
+  "budget": "10",
+  "spent": "2",
+  "recovered": "8",
+  "asset": "DemoUSD (valueless)",
+  "passed": true
+}

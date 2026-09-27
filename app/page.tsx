@@ -40,6 +40,8 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import ChainPanel from '@/components/chain-panel';
+import TaskPanel from '@/components/task-panel';
+import type { Brief, ServiceReceipt } from '@/lib/procurement';
 import {
   initialState,
   applyPayment,
@@ -84,7 +86,9 @@ export default function Home() {
   const t = (zh: string, en: string) => (lang === 'zh' ? zh : en);
   const [state, setState] = useState(initialState);
   const stateRef = useRef(state);
-  const [tab, setTab] = useState('mission');
+  const [tab, setTab] = useState('task');
+  const [brief, setBrief] = useState<Brief>();
+  const [serviceReceipts, setServiceReceipts] = useState<ServiceReceipt[]>([]);
   const [running, setRunning] = useState(false);
   const active = useRef(true);
   const [agent, setAgent] = useState<AgentId>('search');
@@ -367,15 +371,17 @@ export default function Home() {
       </header>
       <section className="page-heading">
         <div>
-          <p className="eyebrow">AGENT SPENDING CONTROL</p>
+          <p className="eyebrow">TASK PROCUREMENT / AVALANCHE</p>
           <h1>
-            {t('让 AI 协作。', 'Let agents work.')}
-            <span>{t('让预算有边界。', 'Keep spending bounded.')}</span>
+            {t('交付任务。', 'Deliver the work.')}
+            <span>
+              {t('每笔花费，有据可查。', 'Account for every payment.')}
+            </span>
           </h1>
           <p className="lead">
             {t(
-              '一个任务，多个 Agent，一份无法越过的资金授权。',
-              'One mission. Multiple agents. A shared, enforceable spending boundary.',
+              '任务成果、服务订单与预算权限，在同一个工作台。',
+              'Task results, service orders and budget permissions in one workspace.',
             )}
           </p>
         </div>
@@ -383,14 +389,18 @@ export default function Home() {
           {running ? <LoaderCircle className="spin" /> : <Play size={16} />}{' '}
           {running
             ? t('正在运行演示', 'Running demo')
-            : t('运行完整演示', 'Run full demo')}
+            : t('运行资金规则模拟', 'Run policy simulation')}
         </Button>
       </section>
       <Tabs value={tab} onValueChange={(v) => setTab(String(v))}>
         <TabsList className="console-tabs" variant="line">
+          <TabsTrigger value="task">
+            <FileCheck2 />
+            {t('任务与成果', 'Work & results')}
+          </TabsTrigger>
           <TabsTrigger value="mission">
             <Activity />
-            {t('任务控制台', 'Mission')}
+            {t('规则模拟', 'Simulation')}
           </TabsTrigger>
           <TabsTrigger value="arena">
             <Terminal />
@@ -405,6 +415,15 @@ export default function Home() {
             {t('验证证据', 'Evidence')}
           </TabsTrigger>
         </TabsList>
+        <TabsContent value="task" keepMounted>
+          <TaskPanel
+            lang={lang}
+            openChain={() => setTab('chain')}
+            brief={brief}
+            onBrief={setBrief}
+            receipts={serviceReceipts}
+          />
+        </TabsContent>
         <TabsContent value="mission">
           <div className="workspace">
             <section className="mission-panel">
@@ -707,7 +726,16 @@ export default function Home() {
           {ledger}
         </TabsContent>
         <TabsContent value="chain" keepMounted>
-          <ChainPanel lang={lang} />
+          <ChainPanel
+            lang={lang}
+            brief={brief}
+            onReceipt={(r) =>
+              setServiceReceipts((old) => [
+                ...old.filter((x) => x.requestId !== r.requestId),
+                r,
+              ])
+            }
+          />
         </TabsContent>
         <TabsContent value="evidence">
           <div className="section-intro">
@@ -763,6 +791,33 @@ export default function Home() {
               </p>
             </div>
           </div>
+          <section className="ledger evidence-tests">
+            <h2>{t('真实数据与任务采购', 'Real data and task procurement')}</h2>
+            <p className="notice">
+              {t(
+                '公开链数据报告可直接查看。报告绑定订单的付款、重复请求拒绝、分支撤销及 8 DemoUSD 退款已在本地 EVM 验证；不作为 Fuji 交易证据。',
+                'Public-chain data reports are available to inspect. Report-bound payment, duplicate rejection, branch revocation and an 8 DemoUSD refund were verified on a local EVM, not Fuji.',
+              )}
+            </p>
+            <div className="action-row wrap">
+              <a
+                className="text-link"
+                href="/evidence/research-example.json"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t('真实数据案例', 'Real-data example')} ↗
+              </a>
+              <a
+                className="text-link"
+                href="/evidence/procurement-local.json"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t('本地采购执行记录', 'Local procurement trace')} ↗
+              </a>
+            </div>
+          </section>
           <section className="ledger evidence-tests">
             <h2>{t('合约验证清单', 'Contract verification')}</h2>
             {evidence ? (

@@ -16,6 +16,8 @@
     "typecheck": "tsc --noEmit",
     "test:ui": "tsx --test tests/*.test.ts",
     "demo:local": "node scripts/demo-local.mjs",
+    "demo:procurement": "tsx scripts/demo-procurement.ts",
+    "model:configure": "node scripts/configure-model.mjs",
     "deploy:fuji": "node scripts/deploy-fuji.mjs"
   },
   "dependencies": {

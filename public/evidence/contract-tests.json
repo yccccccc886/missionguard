@@ -2,7 +2,7 @@
   "project": "MissionGuard",
   "environment": "Local Hardhat EVM — NOT Avalanche Fuji",
   "chainId": 31337,
-  "generatedAt": "2026-09-19T07:05:58.302Z",
+  "generatedAt": "2026-09-27T10:50:04.199Z",
   "solidity": "0.8.30+commit.73712a01.Emscripten.clang",
   "sourceHash": "0x7cde31552969d33d739f310b9f34efb6082d5b31d85a46d2fde92c5273abe3fc",
   "passed": 31,
@@ -11,27 +11,27 @@
     {
       "name": "valid EIP-712 payment transfers exact amount and updates mission and grant",
       "status": "passed",
-      "durationMs": 33
+      "durationMs": 37
     },
     {
       "name": "unauthorized recipient rejected",
       "status": "passed",
-      "durationMs": 15
+      "durationMs": 18
     },
     {
       "name": "tampered recipient invalidates signature even if allowlisted",
       "status": "passed",
-      "durationMs": 14
+      "durationMs": 16
     },
     {
       "name": "tampered amount invalidates signature",
       "status": "passed",
-      "durationMs": 22
+      "durationMs": 16
     },
     {
       "name": "wrong agent cannot sign another grant",
       "status": "passed",
-      "durationMs": 13
+      "durationMs": 15
     },
     {
       "name": "chain-bound signature rejects another chain",
@@ -41,7 +41,7 @@
     {
       "name": "contract-bound signature rejects another vault",
       "status": "passed",
-      "durationMs": 13
+      "durationMs": 14
     },
     {
       "name": "expired payment rejected at deadline boundary",
@@ -51,7 +51,7 @@
     {
       "name": "same request cannot charge twice",
       "status": "passed",
-      "durationMs": 18
+      "durationMs": 16
     },
     {
       "name": "request ID is shared across agents in the same mission",
@@ -71,17 +71,17 @@
     {
       "name": "same-block concurrent competing payments cannot overspend",
       "status": "passed",
-      "durationMs": 18
+      "durationMs": 17
     },
     {
       "name": "per-agent ceiling prevents spending another agent budget",
       "status": "passed",
-      "durationMs": 18
+      "durationMs": 20
     },
     {
       "name": "per-payment limit is enforced",
       "status": "passed",
-      "durationMs": 13
+      "durationMs": 14
     },
     {
       "name": "delegated payment charges every ancestor exactly once",
@@ -91,7 +91,7 @@
     {
       "name": "siblings share parent ceiling; a new child cannot reset parent spending",
       "status": "passed",
-      "durationMs": 23
+      "durationMs": 22
     },
     {
       "name": "parent revocation invalidates existing descendant signatures",
@@ -106,7 +106,7 @@
     {
       "name": "merchant policy revision invalidates old signatures",
       "status": "passed",
-      "durationMs": 17
+      "durationMs": 18
     },
     {
       "name": "owner-only controls reject unrelated callers",
@@ -126,22 +126,22 @@
     {
       "name": "grant depth is bounded to eight",
       "status": "passed",
-      "durationMs": 17
+      "durationMs": 18
     },
     {
       "name": "withdrawal requires revocation or expiry; returns only remainder once",
       "status": "passed",
-      "durationMs": 20
+      "durationMs": 19
     },
     {
       "name": "mission expiry rejects payments and allows owner withdrawal",
       "status": "passed",
-      "durationMs": 15
+      "durationMs": 14
     },
     {
       "name": "failed token transfer rolls back all budgets and request consumption",
       "status": "passed",
-      "durationMs": 20
+      "durationMs": 18
     },
     {
       "name": "reentrant token callback cannot execute a second payment",
@@ -161,7 +161,7 @@
     {
       "name": "100 adversarial requests preserve budget and token conservation",
       "status": "passed",
-      "durationMs": 279
+      "durationMs": 292
     }
   ]
 }
