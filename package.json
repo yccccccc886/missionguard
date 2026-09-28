@@ -17,6 +17,10 @@
     "test:ui": "tsx --test tests/*.test.ts",
     "demo:local": "node scripts/demo-local.mjs",
     "demo:procurement": "tsx scripts/demo-procurement.ts",
+    "demo:fuji": "tsx scripts/demo-fuji.mjs",
+    "test:fuji-run": "tsx scripts/test-fuji-run.mjs",
+    "submission:check": "node scripts/submission-check.mjs",
+    "verify:fuji": "tsx scripts/verify-fuji.mjs",
     "model:configure": "node scripts/configure-model.mjs",
     "deploy:fuji": "node scripts/deploy-fuji.mjs"
   },

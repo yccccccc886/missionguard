@@ -1,1 +1,12 @@
-{"status":"not-deployed","chainId":43113,"deployer":"0x2848485539a48884Ae1035e1A4B88C1f552ed8CD","reason":"Awaiting free Fuji test AVAX. Browser deployment is available with a funded Fuji wallet."}
+{
+  "status": "deployed",
+  "chainId": 43113,
+  "deployer": "0x2848485539a48884Ae1035e1A4B88C1f552ed8CD",
+  "rpc": "https://api.avax-test.network/ext/bc/C/rpc",
+  "updatedAt": "2026-09-28T12:09:41.840Z",
+  "tokenTransaction": "0xbfd8b2586c727bec486ee565ff50c169ec1b045c87a1a2e7f569dde746a01e60",
+  "token": "0x526b06cb073c58Da4eDDDe2BD25ED50814CCAa78",
+  "guardTransaction": "0xcf9b36dfdd72223d23896d945fd6c1b3efda861618e92bf17c0b501d833ee2ac",
+  "guard": "0x250084921Ccc6D1b8f998B533b3477591291d94E",
+  "asset": "DemoUSD (freely mintable test token, not Circle USDC)"
+}

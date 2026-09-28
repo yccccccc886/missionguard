@@ -1,4 +1,4 @@
-# Delivery status — 2026-09-27
+# Delivery status — 2026-09-28
 
 ## Implemented and verified
 
@@ -12,13 +12,18 @@
 - Browser interaction checked: real report generation, recorded example, report recovery, task-to-vault navigation; Chinese/English views inspected at desktop and mobile widths.
 - Optional SiliconFlow interpretation adapter and hidden local key configuration helper. Disabled by default; no live model call claimed.
 - Updated submission copy, three-minute script and v2 pitch deck.
+- Private Site version 2 deployed successfully on September 27, from commit `045b23bd6872d5a1514daf88b7ec1a52f4fe342b`; GitHub remains private.
+- Added a Fuji-only procurement runner with a private journal written before broadcasting, exact transaction recovery, separate agent signers and sanitized public receipts. Local fault-injection tests verify recovery before broadcast and after payment, completed-run idempotency and rejection of changed requests. No Fuji success is inferred from these local checks.
+- Added offline `submission:check` and `docs/fuji-runbook.md`; missing registration, access, model and public-chain evidence remain explicit.
+- Fuji contracts deployed September 28. Procurement mission #1 completed 12 real transactions: 10 DemoUSD funded, 2 paid, 8 refunded. The independent verification branch paid after the research root was revoked. `verify:fuji` independently re-fetched all 12 receipts and confirmed current mission accounting from the official RPC.
+- Fuji evidence: `public/evidence/procurement-fuji.json`. Duplicate-order and revoked-descendant probes are historical read-only simulations, not broadcast failed transactions. Model use remains unverified.
 
 ## Still required before a strong submission
 
-- Fuji deployment: read-only check on September 27 returned zero test AVAX at 0x2848485539a48884Ae1035e1A4B88C1f552ed8CD. No Fuji deployment/payment/refund success claimed.
 - Free model credentials and a real model call. The adapter only explains public facts; it is not an autonomous purchasing agent.
-- Full wallet/Fuji end-to-end verification, recorded video and independent developer trials.
+- Full browser-wallet/Fuji end-to-end verification, hosted receipt recovery, recorded video and independent developer trials. Command-line settlement is verified, but does not prove these UI/service checks.
 - Registration/eligibility confirmation and final repository/site access decision. Last user preference remains private.
+- September 28 hosted browser verification was blocked by the browser-control connection (`nodeRepl.fetch request failed`). September 27 local browser checks remain valid, but do not prove hosted R2 behavior.
 
 ## Evidence boundaries
 

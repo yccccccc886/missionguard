@@ -1,0 +1,106 @@
+{
+  "environment": "Avalanche Fuji testnet",
+  "chainId": 43113,
+  "generatedAt": "2026-09-28T12:12:17.540Z",
+  "guard": "0x250084921Ccc6D1b8f998B533b3477591291d94E",
+  "token": "0x526b06cb073c58Da4eDDDe2BD25ED50814CCAa78",
+  "owner": "0x2848485539a48884Ae1035e1A4B88C1f552ed8CD",
+  "taskId": "0x6748e539afc0e969a654073b04ccb2471af1c4f5388cd001183af17c5d94eb7e",
+  "missionId": "1",
+  "execution": "Scripted independent signers; no model; self-operated merchant",
+  "budget": "10",
+  "spent": "2",
+  "recovered": "8",
+  "asset": "DemoUSD (valueless)",
+  "transactions": [
+    {
+      "label": "mint",
+      "hash": "0xa6de18abb4fc9ed4ab875927d7f924e1f79e2d7211a0f09e8d0964af4eab14a5",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0xa6de18abb4fc9ed4ab875927d7f924e1f79e2d7211a0f09e8d0964af4eab14a5"
+    },
+    {
+      "label": "approve",
+      "hash": "0x6d0c4a8e414e83644cf103f52ae087ce879474302ead5472a98119dd4b8c3145",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0x6d0c4a8e414e83644cf103f52ae087ce879474302ead5472a98119dd4b8c3145"
+    },
+    {
+      "label": "mission",
+      "hash": "0xff6dcc7c0c2c7eb68c67840119510f27abccfb048c640a1474ba07e3ed46beaf",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0xff6dcc7c0c2c7eb68c67840119510f27abccfb048c640a1474ba07e3ed46beaf"
+    },
+    {
+      "label": "merchant",
+      "hash": "0x406aca44fc05dfa9019f185b62bd1a41a19d4e751495b4f6552c577a51dd26f4",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0x406aca44fc05dfa9019f185b62bd1a41a19d4e751495b4f6552c577a51dd26f4"
+    },
+    {
+      "label": "research",
+      "hash": "0xdd4cc9d75d77c410d551007da359d7ac2a3b57aaae04dba1d093161d3e5a6ae9",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0xdd4cc9d75d77c410d551007da359d7ac2a3b57aaae04dba1d093161d3e5a6ae9"
+    },
+    {
+      "label": "data",
+      "hash": "0x0e2d2440e6f006a07dfffc7f8fa29ce1714205d846880c247dbf9492e86c728b",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0x0e2d2440e6f006a07dfffc7f8fa29ce1714205d846880c247dbf9492e86c728b"
+    },
+    {
+      "label": "verification",
+      "hash": "0xbb3c128ad7666337ff8b2b5007e90e2659adf06204faf7bf7c129cd5b94262e5",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0xbb3c128ad7666337ff8b2b5007e90e2659adf06204faf7bf7c129cd5b94262e5"
+    },
+    {
+      "label": "payActivity",
+      "hash": "0xc4f57ed6e854d4b6d44c4a4cf761897dcc5f7e4de3609b42ef5d7b46ac7d93e6",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0xc4f57ed6e854d4b6d44c4a4cf761897dcc5f7e4de3609b42ef5d7b46ac7d93e6"
+    },
+    {
+      "label": "revokeResearch",
+      "hash": "0xa7831a3d9881b10e7da0dad0c9375d6966768b8934279ee3d95e3380be06d44b",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0xa7831a3d9881b10e7da0dad0c9375d6966768b8934279ee3d95e3380be06d44b"
+    },
+    {
+      "label": "payVerification",
+      "hash": "0xdc77a7ecf7ee15af1f1b1ba6c7cc46194dee1b54669ad21604ba42870e5f1499",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0xdc77a7ecf7ee15af1f1b1ba6c7cc46194dee1b54669ad21604ba42870e5f1499"
+    },
+    {
+      "label": "close",
+      "hash": "0x7ed12c87b4ebf2a5689d282839d7bcfe1c64484a8471f038b9385d27e4cf34de",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0x7ed12c87b4ebf2a5689d282839d7bcfe1c64484a8471f038b9385d27e4cf34de"
+    },
+    {
+      "label": "refund",
+      "hash": "0xec6f92f59b07a29a76c6ed12daedf5afbc453d6a8fe63aabb25a88c2bcf987e8",
+      "confirmed": true,
+      "explorer": "https://testnet.snowtrace.io/tx/0xec6f92f59b07a29a76c6ed12daedf5afbc453d6a8fe63aabb25a88c2bcf987e8"
+    }
+  ],
+  "probes": {
+    "duplicateOrder": {
+      "status": "simulation-rejected",
+      "code": "RequestAlreadyUsed",
+      "blockNumber": 58817701,
+      "blockHash": "0x8a4ba1e7e37b581283a143d50127e1cd7e47e58fc9ec370be584c405141def6b",
+      "checkedAt": "2026-09-28T12:11:26.816Z"
+    },
+    "revokedDescendant": {
+      "status": "simulation-rejected",
+      "code": "GrantInactive",
+      "blockNumber": 58817713,
+      "blockHash": "0x4bc1071d1bd3ef77dcadeb5e00593be42a65307c3553c7ce4e84918625f86fce",
+      "checkedAt": "2026-09-28T12:11:39.599Z"
+    }
+  },
+  "passed": true
+}

@@ -2,7 +2,7 @@
 
 **Task procurement and receipts for AI workflows on Avalanche.** Inspect a real contract activity report, bind it to a funded mission, and reconcile service orders with exact payment receipts.
 
-2026-09-27 update: the primary experience now reads real Avalanche logs, saves immutable reports in R2, exports Markdown/JSON, and supports report-bound service orders. A local EVM integration demonstrates paying 2 DemoUSD, rejecting duplicate charges, stopping a parent branch while an independent branch continues, and recovering 8 DemoUSD. Fuji deployment and live model credentials remain pending. Demo services are self-operated; there are no claims of external customers or commercial payments.
+2026-09-28 update: real Avalanche reports now have a confirmed Fuji procurement trace: 12 transactions escrowed 10 DemoUSD, paid 2, stopped the research branch while independent verification continued, and refunded 8. Duplicate-order and revoked-child checks are separately labelled read-only simulations. The receipt verifier rechecked all 12 transactions against the official RPC. Live model credentials remain pending. Demo services are self-operated; there are no claims of external customers or commercial payments.
 
 一个任务可以有多个 Agent 和多层子任务。每次付款都必须同时满足任务总预算、当前 Agent 及所有上级的累计额度、单笔上限、收款白名单、到期时间和签名版本。撤销上级会让所有后代的待执行付款失效。
 
@@ -67,9 +67,14 @@ Get free test AVAX from https://build.avax.network/console/primary-network/fauce
 
 ```sh
 npm run deploy:fuji
+npm run demo:fuji -- --execute
+npm run verify:fuji
+npm run submission:check
 ```
 
 The optional CLI reads a disposable testnet key from ignored `.secrets/fuji-deployer.json`, checks the chain before sending, records deployment receipts, and resumes confirmed partial deployments. Never publish this file. The browser flow requires no key file. DemoUSD has 6 decimals and unrestricted minting. It is not Circle USDC.
+
+The procurement CLI persists signed bytes before broadcast in an ignored private journal. Repeating a completed run sends no new transactions. Run `npm run test:fuji-run` for local crash/recovery verification and see `docs/fuji-runbook.md` for recovery boundaries. Public Fuji evidence is in `public/evidence/procurement-fuji.json`.
 
 ## Repository map
 

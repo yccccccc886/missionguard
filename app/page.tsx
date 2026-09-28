@@ -41,6 +41,7 @@ import {
 } from '@/components/ui/table';
 import ChainPanel from '@/components/chain-panel';
 import TaskPanel from '@/components/task-panel';
+import FujiEvidence from '@/components/fuji-evidence';
 import type { Brief, ServiceReceipt } from '@/lib/procurement';
 import {
   initialState,
@@ -791,8 +792,9 @@ export default function Home() {
               </p>
             </div>
           </div>
+          <FujiEvidence language={lang} />
           <section className="ledger evidence-tests">
-            <h2>{t('真实数据与任务采购', 'Real data and task procurement')}</h2>
+            <h2>{t('真实数据与本地复现', 'Real data and local reproduction')}</h2>
             <p className="notice">
               {t(
                 '公开链数据报告可直接查看。报告绑定订单的付款、重复请求拒绝、分支撤销及 8 DemoUSD 退款已在本地 EVM 验证；不作为 Fuji 交易证据。',
