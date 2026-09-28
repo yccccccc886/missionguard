@@ -51,7 +51,7 @@ The free report preview is deliberately available before settlement. Testnet pay
 
 ## Optional model interpretation
 
-Use a model currently marked **free** in your SiliconFlow account; model availability and rate limits can change. Run `npm run model:configure` in an interactive terminal. The key is entered invisibly and saved only to ignored `.dev.vars`. Restart the local preview. Existing secret files are never overwritten. For hosting, configure the same key as a Site secret separately; do not commit or upload `.dev.vars`.
+Use a model currently marked **free** in your SiliconFlow account; model availability and rate limits can change. Run `npm run model:configure` in an interactive terminal, then `npm run model:verify` for a real provider call using the same adapter as the website. The key is entered invisibly and saved only to ignored `.dev.vars`; evidence is saved to `output/model-verification.json` for factual review. Existing secret files are never overwritten. Hosted use additionally requires Site secret configuration and platform sign-in; an ordinary local preview has no platform identity. Do not commit or upload `.dev.vars`.
 
 The adapter sends only bounded public report facts to the fixed SiliconFlow endpoint, limits output to 500 tokens, caches successful interpretations and requires a platform-authenticated user. Anonymous visitors cannot invoke it. It is disabled by default, has no signing keys or payment tools, and is not an autonomous purchasing agent. Cache misses made concurrently can still consume multiple provider calls; do not enable a paid model without a separate usage limit.
 

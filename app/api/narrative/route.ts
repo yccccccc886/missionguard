@@ -1,6 +1,7 @@
 import { env } from 'cloudflare:workers';
 import { apiError, bucket, loadBrief, smallBody } from '@/lib/task-store';
 import { hashJson } from '@/lib/procurement';
+import { narrativeVersion, requestNarrative } from '@/lib/narrative';
 
 function config() {
   const values = env as unknown as {
@@ -49,72 +50,24 @@ export async function POST(request: Request) {
       taskId?: string;
       language?: string;
     };
-    if (!input.taskId || !['zh', 'en'].includes(input.language ?? ''))
+    if (!input.taskId || (input.language !== 'zh' && input.language !== 'en'))
       throw Error('Invalid request');
     const brief = await loadBrief(input.taskId);
-    const cacheKey = `narratives/${hashJson({ id: brief.id, language: input.language, model: c.model })}.json`;
+    const cacheKey = `narratives/${hashJson({ id: brief.id, language: input.language, model: c.model, version: narrativeVersion })}.json`;
     const existing = await bucket().get(cacheKey);
     if (existing) return Response.json(await existing.json());
-    // Only bounded public facts are sent. The model has no transaction tool or key.
-    const facts = {
-      contract: brief.spec.address,
-      chain: brief.spec.chainId,
-      blocks: [brief.spec.fromBlock, brief.spec.toBlock],
-      time: [brief.startTime, brief.endTime],
-      emittedLogs: brief.eventCount,
-      distinctTransactionsWithLogs: brief.transactionCount,
-      verification: 'same RPC, two pinned-range reads matched',
-    };
-    const response = await fetch(
-      'https://api.siliconflow.cn/v1/chat/completions',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${c.key}`,
-        },
-        signal: AbortSignal.timeout(45000),
-        body: JSON.stringify({
-          model: c.model,
-          max_tokens: 500,
-          temperature: 0.1,
-          stream: false,
-          messages: [
-            {
-              role: 'system',
-              content: `Explain the supplied blockchain observation in ${input.language === 'zh' ? 'Chinese' : 'English'} in at most 150 words. Use only provided facts. Explain why log count is not all calls or users. State that this is a short observation window and a same-provider reread, not a security audit. No investment advice. No invented fees, payments, risks, trends or people. Return plain text.`,
-            },
-            { role: 'user', content: JSON.stringify(facts) },
-          ],
-        }),
-      },
-    );
-    if (!response.ok)
-      throw Error(
-        `Model service unavailable (${response.status}); no interpretation produced.`,
-      );
-    const data = (await response.json()) as {
-      choices?: { message?: { content?: string } }[];
-      usage?: { prompt_tokens?: number; completion_tokens?: number };
-    };
-    const text = data.choices?.[0]?.message?.content?.trim();
-    if (!text || text.length > 10000)
-      throw Error('Model returned no usable interpretation.');
-    const result = {
-      taskId: brief.id,
-      text,
-      model: c.model,
-      provider: 'SiliconFlow',
-      generatedAt: new Date().toISOString(),
-      usage: data.usage ?? null,
-      execution: 'llm-interpretation',
-      sourceDataHash: brief.dataHash,
-    };
+    const result = await requestNarrative(brief, input.language, {
+      key: c.key!,
+      model: c.model!,
+    });
     await bucket().put(cacheKey, JSON.stringify(result), {
       onlyIf: { etagDoesNotMatch: '*' },
       httpMetadata: { contentType: 'application/json' },
     });
-    return Response.json(result);
+    const saved = await bucket().get(cacheKey);
+    if (!saved)
+      throw Error('Interpretation storage unavailable; please retry.');
+    return Response.json(await saved.json());
   } catch (e) {
     return apiError(e);
   }

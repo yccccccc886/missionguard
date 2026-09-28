@@ -22,6 +22,7 @@
     "submission:check": "node scripts/submission-check.mjs",
     "verify:fuji": "tsx scripts/verify-fuji.mjs",
     "model:configure": "node scripts/configure-model.mjs",
+    "model:verify": "tsx scripts/verify-model.ts",
     "deploy:fuji": "node scripts/deploy-fuji.mjs"
   },
   "dependencies": {
