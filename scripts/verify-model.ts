@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { requestNarrative } from '../lib/narrative';
+import { narrativeVersion, requestNarrative } from '../lib/narrative';
 import { taskId, type Brief } from '../lib/procurement';
 
 // Read only the three settings written by model:configure. No shell evaluation,
@@ -40,6 +40,7 @@ async function main() {
     if (
       saved.result?.taskId === brief.id &&
       saved.result?.model === config.SILICONFLOW_MODEL &&
+      saved.result?.narrativeVersion === narrativeVersion &&
       saved.liveCall === true
     ) {
       console.log(

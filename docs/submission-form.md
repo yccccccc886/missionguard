@@ -25,7 +25,7 @@ What we have demonstrated:
 - 31 local contract tests and 20 application tests passed; additional crash-recovery checks cover interruptions before broadcast and after payment.
 - The local production build verified real Fuji receipts and recovered saved delivery records without another payment.
 
-The prototype uses scripted agents, self-operated services and valueless test tokens. A model-interpretation adapter is implemented but not yet validated with a live model; autonomous model purchasing is not claimed. Full browser-wallet acceptance remains pending. The code and pitch include deployment addresses, receipt links, reproducible commands and implementation limits.
+The prototype uses scripted agents, self-operated services and valueless test tokens. A real SiliconFlow Qwen2.5-7B-Instruct call interpreted the recorded Avalanche observations, with the response, source hash and token usage saved for review. The model explains data; autonomous model purchasing is not claimed. Full hosted model and browser-wallet acceptance remains pending. The code and pitch include deployment addresses, receipt links, reproducible commands and implementation limits.
 
 ## Tracks
 

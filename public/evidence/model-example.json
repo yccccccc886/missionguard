@@ -1,0 +1,33 @@
+{
+  "liveCall": true,
+  "checkedAt": "2026-09-29T13:25:06.476Z",
+  "result": {
+    "taskId": "0x6748e539afc0e969a654073b04ccb2471af1c4f5388cd001183af17c5d94eb7e",
+    "text": "在Avalanche C-Chain网络上，针对合约0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E，在区块96253650和96253745之间的时间段（2026-09-27T10:39:17Z至2026-09-27T10:41:18Z），共产生了161个日志条目和85个包含这些日志的独立交易。这些日志和交易数量不表示所有合约调用或唯一用户数量，且一个交易可以产生多个日志。这是短暂的观察窗口，并且两次读取来自同一提供者，不是独立验证或安全审计。",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "provider": "SiliconFlow",
+    "generatedAt": "2026-09-29T13:25:06.475Z",
+    "usage": {
+      "prompt_tokens": 316,
+      "completion_tokens": 186
+    },
+    "execution": "llm-interpretation",
+    "narrativeVersion": 2,
+    "sourceDataHash": "0xa2a1b15466c79fed98395479755076d2a6becc885351d4049f70788eef0edf2e"
+  },
+  "reviewStatus": "pending-human-factual-review",
+  "scope": "Direct provider call using the same adapter as the website; hosted authentication and UI not covered.",
+  "factualReview": {
+    "reviewer": "coding-assistant",
+    "status": "passed",
+    "checkedAt": "2026-09-29T13:26:29.463Z",
+    "checks": [
+      "Exact Avalanche C-Chain name",
+      "161 logs and 85 distinct transactions match the source",
+      "Block range and UTC timestamps match the source",
+      "Explicitly excludes all-call and unique-user interpretations",
+      "Explicitly states same-provider reads and no independent verification or security audit"
+    ],
+    "humanReview": "pending"
+  }
+}

@@ -37,7 +37,7 @@ Open the printed local URL. The site supports Chinese and English.
 
 Read `public/evidence/contract-tests.json` for test results and source fingerprint. Run `npm run demo:local` to regenerate `public/evidence/local-demo.json`: 10 DemoUSD funded, 2.5 paid, 7.5 recovered. These are **real contract executions on a local EVM**, not Fuji receipts. Local transaction hashes have no public explorer link.
 
-The browser simulator is an educational state machine, not cryptographic validation. Payment agents are deterministic signers. Optional SiliconFlow interpretation has a server-side adapter, disabled until configured and not yet verified with a live model. It does not control payments. EIP-712 payments are a custom protocol, **not an x402 implementation**. The vault cannot determine whether a service delivered useful output. Automated tests are not an independent audit.
+The browser simulator is an educational state machine, not cryptographic validation. Payment agents are deterministic signers. Optional SiliconFlow interpretation uses a shared server-side adapter. A real Qwen2.5-7B-Instruct call was verified on September 29, with 316 input and 186 output tokens; the recorded sample has assistant factual review, with human review and hosted UI acceptance pending. It does not control payments. EIP-712 payments are a custom protocol, **not an x402 implementation**. The vault cannot determine whether a service delivered useful output. Automated tests are not an independent audit.
 
 ## Real-data and order workflow
 

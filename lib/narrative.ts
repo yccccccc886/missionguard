@@ -1,6 +1,6 @@
 import type { Brief } from './procurement';
 
-export const narrativeVersion = 1;
+export const narrativeVersion = 2;
 export async function requestNarrative(
   brief: Brief,
   language: 'zh' | 'en',
@@ -12,10 +12,14 @@ export async function requestNarrative(
   const facts = {
     contract: brief.spec.address,
     chain: brief.spec.chainId,
+    networkName:
+      brief.spec.chainId === 43114 ? 'Avalanche C-Chain' : 'Avalanche Fuji C-Chain',
     blocks: [brief.spec.fromBlock, brief.spec.toBlock],
     time: [brief.startTime, brief.endTime],
     emittedLogs: brief.eventCount,
     distinctTransactionsWithLogs: brief.transactionCount,
+    measurementLimits:
+      'These are emitted logs and transactions containing those logs, not all contract calls or unique users. A transaction can emit multiple logs; calls without logs are not counted.',
     verification: 'same RPC, two pinned-range reads matched',
   };
   let response: Response;
@@ -35,7 +39,7 @@ export async function requestNarrative(
         messages: [
           {
             role: 'system',
-            content: `Explain the supplied blockchain observation in ${language === 'zh' ? 'Chinese' : 'English'} in at most 150 words. Use only provided facts. Explain why log count is not all calls or users. State that this is a short observation window and a same-provider reread, not a security audit. No investment advice. No invented fees, payments, risks, trends or people. Return plain text.`,
+            content: `Explain the supplied blockchain observation in ${language === 'zh' ? 'Chinese, at most 250 Chinese characters' : 'English, at most 150 words'}. Use only provided facts. Use networkName exactly; do not infer a different blockchain from EVM compatibility. Include the log and transaction counts. Explicitly explain that these counts do not measure all contract calls or unique users, and that one transaction can emit multiple logs. State that this is a short observation window and two matching reads from the same provider, not an independent verification or security audit. No investment advice. No invented fees, payments, risks, trends or people. Return plain text.`,
           },
           { role: 'user', content: JSON.stringify(facts) },
         ],
@@ -83,6 +87,7 @@ export async function requestNarrative(
       completion_tokens: tokens(data.usage?.completion_tokens),
     },
     execution: 'llm-interpretation' as const,
+    narrativeVersion,
     sourceDataHash: brief.dataHash,
   };
 }

@@ -26,6 +26,8 @@ it('model adapter sends only bounded public facts and has no transaction tools',
     assert.equal(String(init?.body).includes(config.key), false);
     const facts = JSON.parse(body.messages[1].content);
     assert.equal(facts.emittedLogs, brief.eventCount);
+    assert.equal(facts.networkName, 'Avalanche C-Chain');
+    assert.match(facts.measurementLimits, /not all contract calls or unique users/);
     assert.equal(facts.events, undefined);
     return completed('161 logs across 85 transactions; this is not an audit.');
   };

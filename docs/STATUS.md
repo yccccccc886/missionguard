@@ -1,4 +1,6 @@
-# Delivery status — 2026-09-28
+# Delivery status — 2026-09-29
+
+September 29 model update: the local key authenticated successfully. A real `Qwen/Qwen2.5-7B-Instruct` call through the shared website adapter produced a complete Chinese interpretation (316 input / 186 output tokens). `public/evidence/model-example.json` records the response and coding-assistant factual review; human review is pending. Explicit network names and measurement limits were added after rejecting an earlier response that misnamed Avalanche. Hosted runtime model use and browser-wallet acceptance remain unverified. Historical entries below describe their dates, not the latest model state.
 
 ## Implemented and verified
 
@@ -24,7 +26,7 @@
 
 ## Still required before a strong submission
 
-- Free model credentials and a real model call. The adapter only explains public facts; it is not an autonomous purchasing agent.
+- Hosted model invocation and human review of the recorded live sample. Local credentials and a real direct provider call are complete. The adapter only explains public facts; it is not an autonomous purchasing agent.
 - Full browser-wallet/Fuji end-to-end verification, hosted receipt recovery, recorded video and independent developer trials. Command-line settlement is verified, but does not prove these UI/service checks.
 - Registration/eligibility confirmation and final repository/site access decision. Last user preference remains private.
 - September 28 hosted browser verification was blocked by the browser-control connection (`nodeRepl.fetch request failed`). September 27 local browser checks remain valid, but do not prove hosted R2 behavior.
