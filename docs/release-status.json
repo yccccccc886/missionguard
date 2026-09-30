@@ -13,6 +13,11 @@
     "status": "pending",
     "reason": "Browser control unavailable; entrant has not performed the final wallet flow."
   },
+  "hostedModel": {
+    "status": "confirmed-by-user",
+    "confirmedOn": "2026-09-30",
+    "scope": "Entrant loaded the real case in the hosted workspace and successfully displayed Qwen model interpretation. Browser refresh/cache recovery and independent factual review were not confirmed by this response."
+  },
   "judgeAccess": {
     "status": "verified",
     "site": "public",
