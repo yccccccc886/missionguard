@@ -14,13 +14,14 @@
     "reason": "Browser control unavailable; entrant has not performed the final wallet flow."
   },
   "judgeAccess": {
-    "status": "configured-public",
+    "status": "verified",
     "site": "public",
     "repository": "public",
     "authorizedOn": "2026-09-30",
     "repositoryAnonymousHttpStatus": 200,
     "siteAutomatedHttpStatus": 403,
-    "reason": "Native Site policy is public; anonymous browser reachability is pending."
+    "reason": "Entrant confirmed an incognito browser can directly view the reviewer page and video on September 30; GitHub anonymous HTTP access also passed.",
+    "siteAnonymousBrowser": "confirmed-by-user"
   },
   "submission": {
     "status": "not-submitted"

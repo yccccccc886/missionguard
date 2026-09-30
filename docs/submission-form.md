@@ -1,6 +1,6 @@
 # 提交表单文案
 
-按 2026-09-30 已验证状态编写。用户已确认完成报名。下列英文可分别粘贴到对应字段。用户已授权公开，网站访问策略和 GitHub 均已改为公开。GitHub 已验证免登录访问；站点无痕浏览器访问仍待确认。项目尚未提交。
+按 2026-09-30 已验证状态编写。用户已确认完成报名。下列英文可分别粘贴到对应字段。用户已授权公开，网站访问策略和 GitHub 均已改为公开。GitHub 已验证免登录访问；用户已确认无痕窗口能直接打开评委页面和视频。项目尚未提交。
 
 ## Project Name
 
@@ -33,7 +33,7 @@ The prototype uses scripted agents, self-operated services and valueless test to
 
 ## Website
 
-演示站（已设为公开，提交前请用无痕窗口确认）：
+演示站（已设为公开，无痕窗口访问已由用户确认）：
 https://missionguard-avalanche.a15632158565.chatgpt.site
 
 GitHub（已公开，若有专用 Repository 字段填在那里）：
@@ -47,7 +47,7 @@ https://github.com/yccccccc886/missionguard
 
 视频文件：`deliverables/MissionGuard-Demo-Evidence.mp4`，约 2 分 36 秒，中文配音及独立中文字幕。这是已记录证据的讲解，不是钱包操作录屏。
 
-已部署的材料链接（站点已设为公开，无痕访问待确认）：
+已部署的材料链接（站点已设为公开，无痕访问已由用户确认）：
 
 - Guide: https://missionguard-avalanche.a15632158565.chatgpt.site/submission/guide.html
 - Video: https://missionguard-avalanche.a15632158565.chatgpt.site/submission/MissionGuard-Demo.mp4

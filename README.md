@@ -4,7 +4,7 @@
 
 2026-09-30: 12 confirmed Fuji transactions escrowed 10 DemoUSD, paid 2 and refunded 8. Independent verification paid after research revocation. A real Qwen2.5 model call interpreted the sourced report. The local production Worker verified model caching and receipt-backed delivery recovery. All 12 Fuji receipts were rechecked today. Full hosted browser-wallet acceptance is still pending. Demo services are self-operated; no external customers or commercial payments are claimed.
 
-Reviewer materials: [quick guide](public/submission/guide.html), [8-slide pitch](public/submission/MissionGuard-Pitch.pptx), [155-second evidence walkthrough](public/submission/MissionGuard-Demo.mp4), [submission copy](docs/submission-form.md). The guide is also served at `/submission/guide.html`; recorded evidence needs no wallet. The entrant authorized public access on September 30. GitHub is publicly readable and the Site access policy is public. Anonymous browser reachability still needs confirmation because automated Site requests receive Cloudflare 403.
+Reviewer materials: [quick guide](public/submission/guide.html), [8-slide pitch](public/submission/MissionGuard-Pitch.pptx), [155-second evidence walkthrough](public/submission/MissionGuard-Demo.mp4), [submission copy](docs/submission-form.md). The guide is also served at `/submission/guide.html`; recorded evidence needs no wallet. The entrant authorized public access on September 30. GitHub is publicly readable and the Site access policy is public. The entrant confirmed direct incognito access to the reviewer page and video on September 30. Automated Site requests from the agent still receive Cloudflare 403.
 
 一个任务可以有多个 Agent 和多层子任务。每次付款都必须同时满足任务总预算、当前 Agent 及所有上级的累计额度、单笔上限、收款白名单、到期时间和签名版本。撤销上级会让所有后代的待执行付款失效。
 
