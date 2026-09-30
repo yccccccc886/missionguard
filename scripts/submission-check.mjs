@@ -82,7 +82,7 @@ add(
 add(
   'judges-access',
   release?.judgeAccess?.status === 'verified',
-  'Source and site remain private until the entrant authorizes access. Confirm judge access before submission.',
+  'Site policy and repository are public with approval. Confirm anonymous browser access before submission.',
 );
 const result = {
   checkedAt: new Date().toISOString(),

@@ -21,7 +21,7 @@
 ## Remaining release decisions and checks
 
 1. Full hosted browser-wallet acceptance, including a new payment/recovery flow and logged-in model request. Browser control still fails on September 30 (`nodeRepl.fetch request failed`). Direct hosted API requests returned Cloudflare 403. Neither is evidence that the business API passed or failed.
-2. Entrant approval to grant judges access. Site and GitHub remain private under the user's standing preference. Registration is confirmed; submission is not performed.
+2. Anonymous browser reachability. The entrant authorized public Site and GitHub access on September 30. Site policy is public and GitHub returns HTTP 200 without authentication. Automated Site requests still return Cloudflare 403, so an incognito browser check remains pending. Registration is confirmed; submission is not performed.
 3. Human review of the final entry and organizer-specific eligibility conditions. Do not claim an independent review that has not happened.
 
 External developer trials are a future product-validation goal, not a verified competition requirement or an invented submission blocker.

@@ -1,8 +1,28 @@
 {
   "updatedAt": "2026-09-30",
-  "registration": {"status": "confirmed-by-user", "confirmedOn": "2026-09-29"},
-  "siteReachability": {"status": "confirmed-by-user", "confirmedOn": "2026-09-29", "scope": "Owner can open the private site; not a functional acceptance test."},
-  "browserWallet": {"status": "pending", "reason": "Browser control unavailable; entrant has not performed the final wallet flow."},
-  "judgeAccess": {"status": "pending", "site": "private", "repository": "private", "reason": "Preserve the entrant's explicit private-access preference until changed."},
-  "submission": {"status": "not-submitted"}
+  "registration": {
+    "status": "confirmed-by-user",
+    "confirmedOn": "2026-09-29"
+  },
+  "siteReachability": {
+    "status": "confirmed-by-user",
+    "confirmedOn": "2026-09-29",
+    "scope": "Owner can open the private site; not a functional acceptance test."
+  },
+  "browserWallet": {
+    "status": "pending",
+    "reason": "Browser control unavailable; entrant has not performed the final wallet flow."
+  },
+  "judgeAccess": {
+    "status": "configured-public",
+    "site": "public",
+    "repository": "public",
+    "authorizedOn": "2026-09-30",
+    "repositoryAnonymousHttpStatus": 200,
+    "siteAutomatedHttpStatus": 403,
+    "reason": "Native Site policy is public; anonymous browser reachability is pending."
+  },
+  "submission": {
+    "status": "not-submitted"
+  }
 }
