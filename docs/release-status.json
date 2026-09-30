@@ -10,8 +10,11 @@
     "scope": "Owner can open the private site; not a functional acceptance test."
   },
   "browserWallet": {
-    "status": "pending",
-    "reason": "Browser control unavailable; entrant has not performed the final wallet flow."
+    "status": "passed",
+    "confirmedOn": "2026-09-30",
+    "missionId": "2",
+    "evidence": "public/evidence/browser-wallet-acceptance.json",
+    "method": "Entrant-operated hosted browser, supplied screenshots, and independent official Fuji RPC checks. Includes initialization, duplicate delivery, descendant rejection, independent payment, refund and post-refresh delivery recovery."
   },
   "hostedModel": {
     "status": "confirmed-by-user",

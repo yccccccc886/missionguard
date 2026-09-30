@@ -21,7 +21,7 @@
 
 ## Remaining release decisions and checks
 
-1. Full hosted browser-wallet acceptance, including a new payment/recovery flow. The logged-in Qwen response is now entrant-confirmed. Browser control still fails on September 30 (`nodeRepl.fetch request failed`). Direct hosted API requests returned Cloudflare 403. Neither automated access failure establishes business API success or failure.
+1. Hosted browser-wallet acceptance passed on September 30: entrant-operated mission #2, screenshots, and official Fuji RPC checks establish two payments totaling 2 DemoUSD, research revocation, descendant GrantInactive simulation, independent verification payment, 8 DemoUSD refund and recovery of both deliveries after refresh. Evidence: `public/evidence/browser-wallet-acceptance.json`. Hosted Qwen generation is entrant-confirmed; hosted model cache recovery was not separately tested.
 2. Judge access is complete: the entrant confirmed on September 30 that an incognito browser directly shows the reviewer page and video. Site policy is public and GitHub returns HTTP 200 without authentication. Automated Site requests still return Cloudflare 403, so this is explicitly an entrant-confirmed browser check. Registration is confirmed; submission is not performed.
 3. Human review of the final entry and organizer-specific eligibility conditions. Do not claim an independent review that has not happened.
 

@@ -24,8 +24,9 @@ What we have demonstrated:
 - Read-only contract simulations returned the expected errors for duplicate orders and revoked descendants.
 - 31 local contract tests and 23 application tests passed; additional crash-recovery checks cover interruptions before broadcast and after payment.
 - The local production build verified real model generation, exact cache recovery, actual Fuji receipts and saved delivery recovery without another payment.
+- A separate entrant-operated hosted browser run (mission #2) completed both purchases, duplicate delivery, branch revocation, descendant rejection, an 8 DemoUSD refund and recovery of both service results after a page refresh. Screenshots and official Fuji RPC checks are published.
 
-The prototype uses scripted agents, self-operated services and valueless test tokens. A real SiliconFlow Qwen2.5-7B-Instruct call interpreted the recorded Avalanche observations, with the response, source hash and token usage saved for review. The model explains data; autonomous model purchasing is not claimed. Full hosted model and browser-wallet acceptance remains pending. The code and pitch include deployment addresses, receipt links, reproducible commands and implementation limits.
+The prototype uses scripted agents, self-operated services and valueless test tokens. A real SiliconFlow Qwen2.5-7B-Instruct call interpreted the recorded Avalanche observations, with the response, source hash and token usage saved for review. The model explains data; autonomous model purchasing is not claimed. The entrant also confirmed live Qwen interpretation in the hosted UI. Browser-wallet acceptance passed; hosted model cache recovery was not separately tested. The code and pitch include deployment addresses, receipt links, reproducible commands and implementation limits.
 
 ## Tracks
 

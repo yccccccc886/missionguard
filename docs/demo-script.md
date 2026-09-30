@@ -22,5 +22,5 @@ Show the recorded Fuji mission #1: data payment, research-parent revocation, ind
 ## Recording and submission gates
 - A 155.6-second narrated evidence video is available at `deliverables/MissionGuard-Demo-Evidence.mp4`; it is not an interactive wallet screen recording.
 - Use `deliverables/MissionGuard-Pitch-v4.pptx` after generation; v4 includes real model evidence.
-- Real model calls and local production API recovery passed. Final hosted browser-wallet acceptance is pending; external developer trials are future product validation.
+- Real model calls and local production API recovery passed. Entrant-operated hosted browser-wallet acceptance passed on September 30 (mission #2); external developer trials are future product validation.
 - The entrant approved public source and Site access on September 30. Verify the Site in an incognito browser before submission.

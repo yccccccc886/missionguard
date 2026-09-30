@@ -1,0 +1,158 @@
+{
+  "verifiedAt": "2026-09-30T11:38:03.209Z",
+  "status": "passed",
+  "chainId": 43113,
+  "guard": "0x250084921Ccc6D1b8f998B533b3477591291d94E",
+  "missionId": "2",
+  "owner": "0x9532cddf75b02aDC8e21D9d26E174b6f5f792A39",
+  "reportId": "0x6748e539afc0e969a654073b04ccb2471af1c4f5388cd001183af17c5d94eb7e",
+  "budget": "10",
+  "spent": "2",
+  "refunded": "8",
+  "method": "Entrant-operated hosted browser workflow, supplied screenshots reviewed by the coding assistant, with independent read-only checks against Avalanche official Fuji RPC.",
+  "checks": {
+    "initialization": "passed",
+    "servicePayments": "passed",
+    "duplicateRequest": "same payment hash shown twice; exactly one activity payment on chain",
+    "branchRevocation": "confirmed transaction; screenshot shows descendant simulation rejected with GrantInactive, no rejected transaction broadcast",
+    "independentBranch": "verification payment confirmed after research revocation",
+    "closeAndRefund": "passed",
+    "refreshRecovery": "entrant followed refresh instructions and supplied screenshot showing both services restored with the original payment hashes"
+  },
+  "scope": "Fuji test assets and project-operated services. This is not an independent security audit. Fresh report generation and model cache recovery have local API evidence; the hosted browser run used the recorded report and did not separately test model cache recovery.",
+  "events": [
+    {
+      "event": "MissionCreated",
+      "transactionHash": "0x20ade99395225766050a0f74bfe2de4b06aa59dbe92157dc8eca703ca88fe0f1",
+      "blockNumber": 58891029,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "owner": "0x9532cddf75b02aDC8e21D9d26E174b6f5f792A39",
+        "budget": "10000000",
+        "expiresAt": "1790770917",
+        "specHash": "0x6748e539afc0e969a654073b04ccb2471af1c4f5388cd001183af17c5d94eb7e"
+      }
+    },
+    {
+      "event": "MerchantUpdated",
+      "transactionHash": "0xbd89cbfd59f6665a49bce405208b66b5c432de6aa6ee963f1743357e449bbdef",
+      "blockNumber": 58891031,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "merchant": "0x2848485539a48884Ae1035e1A4B88C1f552ed8CD",
+        "allowed": true,
+        "epoch": "2"
+      }
+    },
+    {
+      "event": "GrantCreated",
+      "transactionHash": "0x71955b234c81efbb3be7783645fcdcf73e715de378fb5cb559ad6aedc6b27ed8",
+      "blockNumber": 58891036,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "grantId": "4",
+        "parentId": "0",
+        "agent": "0x7c66049Fdc5601167AB8faA1ECF626c3ceCe1ee5",
+        "limit": "8000000",
+        "maxPerPayment": "2000000"
+      }
+    },
+    {
+      "event": "GrantCreated",
+      "transactionHash": "0xab647a785bca37b5cb260afca6f0f9393354ab2a9b1adede6b397a75354d67d5",
+      "blockNumber": 58891037,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "grantId": "5",
+        "parentId": "4",
+        "agent": "0x07153F6fd74B53B77990915b9fE09f7d90E13446",
+        "limit": "3000000",
+        "maxPerPayment": "2000000"
+      }
+    },
+    {
+      "event": "GrantCreated",
+      "transactionHash": "0xcbcc916d7e1960a5010c8845cba28745694d20d9f1fbb6d63cfbdeda4a816710",
+      "blockNumber": 58891040,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "grantId": "6",
+        "parentId": "0",
+        "agent": "0x01898639A88a30c5AC24528DEAef30451156ba31",
+        "limit": "2000000",
+        "maxPerPayment": "2000000"
+      }
+    },
+    {
+      "event": "PaymentExecuted",
+      "transactionHash": "0x4ca9fd58e9734f94fdd9dac68c8aa276ab82fae98104b956d8f651d40e7d804f",
+      "blockNumber": 58891104,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "grantId": "5",
+        "requestId": "0x454fa40d98babecdf8c725a571aba783e12ef769846d4835facc248c52e8f333",
+        "recipient": "0x2848485539a48884Ae1035e1A4B88C1f552ed8CD",
+        "amount": "1500000",
+        "paymentHash": "0x0e8aa2dd641dfc8366c8455db0e3ee0869a6e082ab5f551fe5bf19919b07cbe4"
+      }
+    },
+    {
+      "event": "GrantRevoked",
+      "transactionHash": "0x9846d8469a6e5e848e17005a79b1e631da12fa1ef188b575432983f231c0a988",
+      "blockNumber": 58891151,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "grantId": "4"
+      }
+    },
+    {
+      "event": "PaymentExecuted",
+      "transactionHash": "0x14bc4b004e1c4819771693fadb08dd6c83a15fed76f7fb5bd903f2d1f32a090f",
+      "blockNumber": 58891183,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "grantId": "6",
+        "requestId": "0x72b5dbaeddf52826c104be791d779c2993294eb66cf5dccf15ca43f2af00f19a",
+        "recipient": "0x2848485539a48884Ae1035e1A4B88C1f552ed8CD",
+        "amount": "500000",
+        "paymentHash": "0x421608982ad0bba1d8d8b6d0babc99a35bb4b7b4f756aab964c97da6680f9725"
+      }
+    },
+    {
+      "event": "MissionRevoked",
+      "transactionHash": "0xb4a327e9ccb33eca392a2e4967ba6d94cbee23203fb8eea01af4690f73f0eb6b",
+      "blockNumber": 58891189,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "epoch": "3"
+      }
+    },
+    {
+      "event": "RemainderWithdrawn",
+      "transactionHash": "0x660fc8f94effacdda55e159366ebb1c79239da8521e741edfbc859e9add5d950",
+      "blockNumber": 58891218,
+      "confirmed": true,
+      "args": {
+        "missionId": "2",
+        "owner": "0x9532cddf75b02aDC8e21D9d26E174b6f5f792A39",
+        "amount": "8000000"
+      }
+    }
+  ],
+  "screenshots": {
+    "initialization": "browser-initialization.png",
+    "duplicateRecovery": "browser-duplicate-recovery.png",
+    "revokedDescendant": "browser-revoked-descendant.png",
+    "refund": "browser-refund.png",
+    "afterRefresh": "browser-refresh-recovery.png"
+  }
+}
