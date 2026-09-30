@@ -1,0 +1,8 @@
+{
+  "updatedAt": "2026-09-30",
+  "registration": {"status": "confirmed-by-user", "confirmedOn": "2026-09-29"},
+  "siteReachability": {"status": "confirmed-by-user", "confirmedOn": "2026-09-29", "scope": "Owner can open the private site; not a functional acceptance test."},
+  "browserWallet": {"status": "pending", "reason": "Browser control unavailable; entrant has not performed the final wallet flow."},
+  "judgeAccess": {"status": "pending", "site": "private", "repository": "private", "reason": "Preserve the entrant's explicit private-access preference until changed."},
+  "submission": {"status": "not-submitted"}
+}

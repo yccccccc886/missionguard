@@ -53,34 +53,43 @@ add(
 );
 add(
   'pitch-slides',
-  fs.existsSync('deliverables/MissionGuard-Pitch-v3.pptx'),
-  'Editable v3 slides with confirmed Fuji receipts available.',
+  fs.existsSync('public/submission/MissionGuard-Pitch.pptx'),
+  'Editable v4 slides include Fuji receipts and the recorded real model call.',
 );
+const model = read('public/evidence/model-example.json');
+const brief = read('public/evidence/research-example.json');
 add(
   'model-demonstration',
-  false,
-  'Manual verification required: a real model call, output and usage; configuration alone is insufficient.',
+  model?.liveCall === true && model.result?.sourceDataHash === brief?.dataHash &&
+    model.result?.taskId === brief?.id && model.result?.text?.length > 0 &&
+    model.result?.usage?.completion_tokens > 0 && model.factualReview?.status === 'passed',
+  'Actual provider response and assistant factual review; not independent human review or hosted UI acceptance.',
 );
+const worker = read('public/evidence/local-worker-verification.json');
+add('local-production-api', worker?.passed === true && worker.modelEnabled === true && worker.receipts?.length === 2,
+  'Local R2, real model, cached response and real Fuji receipt recovery. Local authentication uses an explicit test fixture.');
+add('evidence-video', fs.existsSync('public/submission/MissionGuard-Demo.mp4') &&
+  fs.existsSync('public/submission/MissionGuard-Demo.zh.vtt'),
+  '155.6-second narrated evidence video; not a browser-wallet screen recording.');
+const release = read('docs/release-status.json');
+add('registration', release?.registration?.status === 'confirmed-by-user',
+  'Entrant stated registration is complete on September 29. Not an independent eligibility review.');
 add(
   'browser-wallet-recovery',
-  false,
+  release?.browserWallet?.status === 'passed',
   'Manual verification required: actual Fuji wallet payments and recovery in the deployed UI.',
 );
 add(
-  'video-and-developer-trials',
-  false,
-  'Record the final demo and obtain genuine developer feedback; no fabricated testimonials.',
-);
-add(
-  'registration-and-judges-access',
-  false,
-  'Entrant must confirm registration/eligibility and approve judge access. Source and site remain private.',
+  'judges-access',
+  release?.judgeAccess?.status === 'verified',
+  'Source and site remain private until the entrant authorizes access. Confirm judge access before submission.',
 );
 const result = {
   checkedAt: new Date().toISOString(),
   mode: 'offline-readiness',
   readyToSubmit: checks.every((check) => check.status === 'ready'),
   checks,
+  optionalFollowUps: ['Independent developer trials are a future product-validation goal, not a completed result or verified event requirement.'],
 };
 fs.mkdirSync('output', { recursive: true });
 fs.writeFileSync(

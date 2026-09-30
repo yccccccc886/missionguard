@@ -2,7 +2,9 @@
 
 **Task procurement and receipts for AI workflows on Avalanche.** Inspect a real contract activity report, bind it to a funded mission, and reconcile service orders with exact payment receipts.
 
-2026-09-28 update: real Avalanche reports now have a confirmed Fuji procurement trace: 12 transactions escrowed 10 DemoUSD, paid 2, stopped the research branch while independent verification continued, and refunded 8. Duplicate-order and revoked-child checks are separately labelled read-only simulations. The receipt verifier rechecked all 12 transactions against the official RPC. Live model credentials remain pending. Demo services are self-operated; there are no claims of external customers or commercial payments.
+2026-09-30: 12 confirmed Fuji transactions escrowed 10 DemoUSD, paid 2 and refunded 8. Independent verification paid after research revocation. A real Qwen2.5 model call interpreted the sourced report. The local production Worker verified model caching and receipt-backed delivery recovery. All 12 Fuji receipts were rechecked today. Full hosted browser-wallet acceptance is still pending. Demo services are self-operated; no external customers or commercial payments are claimed.
+
+Reviewer materials: [quick guide](public/submission/guide.html), [8-slide pitch](public/submission/MissionGuard-Pitch.pptx), [155-second evidence walkthrough](public/submission/MissionGuard-Demo.mp4), [submission copy](docs/submission-form.md). The guide is also served at `/submission/guide.html`; recorded evidence needs no wallet. Site and repository access remain private until the entrant changes them.
 
 一个任务可以有多个 Agent 和多层子任务。每次付款都必须同时满足任务总预算、当前 Agent 及所有上级的累计额度、单笔上限、收款白名单、到期时间和签名版本。撤销上级会让所有后代的待执行付款失效。
 

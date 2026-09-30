@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-29T14:12:54.892Z",
+  "origin": "http://127.0.0.1:3002",
+  "modelEnabled": true,
+  "interpretation": {
+    "taskId": "0x6748e539afc0e969a654073b04ccb2471af1c4f5388cd001183af17c5d94eb7e",
+    "text": "在Avalanche C-Chain网络上，针对合约0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E，在区块96253650和96253745之间的时间段（2026-09-27T10:39:17Z至2026-09-27T10:41:18Z），共产生了161条日志，涉及85个不同的交易。这些日志和交易不涵盖所有合约调用或唯一用户，且一个交易可以产生多条日志。这是短暂的观察窗口，并且两次读取来自同一提供者，不是独立验证或安全审计。",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "provider": "SiliconFlow",
+    "generatedAt": "2026-09-29T14:12:52.117Z",
+    "usage": {
+      "prompt_tokens": 316,
+      "completion_tokens": 179
+    },
+    "execution": "llm-interpretation",
+    "narrativeVersion": 2,
+    "sourceDataHash": "0xa2a1b15466c79fed98395479755076d2a6becc885351d4049f70788eef0edf2e"
+  },
+  "report": {
+    "id": "0x4bfbb5c47f25d48e9fc3df1a4ecc98cb0978031720e65bc5792ad7636ca1b81b",
+    "dataHash": "0xc18211677e506c168abbe8627096be98cdf0bd4c9adc24873d9fdbce19a967e4",
+    "eventCount": 144,
+    "transactionCount": 69
+  },
+  "receipts": [
+    {
+      "taskId": "0x6748e539afc0e969a654073b04ccb2471af1c4f5388cd001183af17c5d94eb7e",
+      "service": "activity",
+      "requestId": "0x51bf0258299dd60c5ee9a10e49c5775d681182eac780c05ac74ab7efed2f4544",
+      "guard": "0x250084921Ccc6D1b8f998B533b3477591291d94E",
+      "missionId": "1",
+      "transactionHash": "0xc4f57ed6e854d4b6d44c4a4cf761897dcc5f7e4de3609b42ef5d7b46ac7d93e6",
+      "blockNumber": "58817697",
+      "recipient": "0x2848485539a48884Ae1035e1A4B88C1f552ed8CD",
+      "amount": "1500000",
+      "status": "delivered",
+      "artifactHash": "0xa2a1b15466c79fed98395479755076d2a6becc885351d4049f70788eef0edf2e",
+      "explorer": "https://testnet.snowtrace.io/tx/0xc4f57ed6e854d4b6d44c4a4cf761897dcc5f7e4de3609b42ef5d7b46ac7d93e6"
+    },
+    {
+      "taskId": "0x6748e539afc0e969a654073b04ccb2471af1c4f5388cd001183af17c5d94eb7e",
+      "service": "verify",
+      "requestId": "0x794334e54fe7c1076f3a74eb9f5016d6fbea9597083aaa9bf80c0777d75c9348",
+      "guard": "0x250084921Ccc6D1b8f998B533b3477591291d94E",
+      "missionId": "1",
+      "transactionHash": "0xdc77a7ecf7ee15af1f1b1ba6c7cc46194dee1b54669ad21604ba42870e5f1499",
+      "blockNumber": "58817719",
+      "recipient": "0x2848485539a48884Ae1035e1A4B88C1f552ed8CD",
+      "amount": "500000",
+      "status": "delivered",
+      "artifactHash": "0xa2a1b15466c79fed98395479755076d2a6becc885351d4049f70788eef0edf2e",
+      "explorer": "https://testnet.snowtrace.io/tx/0xdc77a7ecf7ee15af1f1b1ba6c7cc46194dee1b54669ad21604ba42870e5f1499"
+    }
+  ],
+  "scope": "Local production Worker with local R2 and explicit test identity fixture; real provider/RPC calls. Does not verify hosted authentication, browser or wallet interactions."
+}

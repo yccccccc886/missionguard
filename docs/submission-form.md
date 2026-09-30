@@ -1,6 +1,6 @@
 # 提交表单文案
 
-按 2026-09-28 已完成状态编写。下列英文可分别粘贴到对应字段。当前网站和 GitHub 仍为私有，公开访问需要参赛者确认。
+按 2026-09-30 已验证状态编写。用户已确认完成报名。下列英文可分别粘贴到对应字段。网站和 GitHub 仍为私有，评委访问权限尚需确认；项目尚未提交。
 
 ## Project Name
 
@@ -22,8 +22,8 @@ What we have demonstrated:
 - 12 confirmed Avalanche Fuji transactions: 10 DemoUSD escrowed, 2 paid and 8 refunded.
 - An independent verification branch successfully paid after the research branch was revoked.
 - Read-only contract simulations returned the expected errors for duplicate orders and revoked descendants.
-- 31 local contract tests and 20 application tests passed; additional crash-recovery checks cover interruptions before broadcast and after payment.
-- The local production build verified real Fuji receipts and recovered saved delivery records without another payment.
+- 31 local contract tests and 23 application tests passed; additional crash-recovery checks cover interruptions before broadcast and after payment.
+- The local production build verified real model generation, exact cache recovery, actual Fuji receipts and saved delivery recovery without another payment.
 
 The prototype uses scripted agents, self-operated services and valueless test tokens. A real SiliconFlow Qwen2.5-7B-Instruct call interpreted the recorded Avalanche observations, with the response, source hash and token usage saved for review. The model explains data; autonomous model purchasing is not claimed. Full hosted model and browser-wallet acceptance remains pending. The code and pitch include deployment addresses, receipt links, reproducible commands and implementation limits.
 
@@ -41,7 +41,17 @@ https://github.com/yccccccc886/missionguard
 
 ## Pitch
 
-使用 `deliverables/MissionGuard-Pitch-v3.pptx`。v3 已加入真实 Fuji 结算证据；v2 的部署状态已过时。
+使用 `deliverables/MissionGuard-Pitch-v4.pptx`。v4 含真实 Fuji 结算及模型调用。旧版本不用于本次提交。
+
+## Demo Video / Reviewer Guide
+
+视频文件：`deliverables/MissionGuard-Demo-Evidence.mp4`，约 2 分 36 秒，中文配音及独立中文字幕。这是已记录证据的讲解，不是钱包操作录屏。
+
+站点更新且评委获准访问后，可使用：
+
+- Guide: https://missionguard-avalanche.a15632158565.chatgpt.site/submission/guide.html
+- Video: https://missionguard-avalanche.a15632158565.chatgpt.site/submission/MissionGuard-Demo.mp4
+- Slides: https://missionguard-avalanche.a15632158565.chatgpt.site/submission/MissionGuard-Pitch.pptx
 
 ## Public-chain evidence
 

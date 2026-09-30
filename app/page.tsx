@@ -42,6 +42,7 @@ import {
 import ChainPanel from '@/components/chain-panel';
 import TaskPanel from '@/components/task-panel';
 import FujiEvidence from '@/components/fuji-evidence';
+import ModelEvidence from '@/components/model-evidence';
 import type { Brief, ServiceReceipt } from '@/lib/procurement';
 import {
   initialState,
@@ -393,6 +394,11 @@ export default function Home() {
             : t('运行资金规则模拟', 'Run policy simulation')}
         </Button>
       </section>
+      <nav className="submission-links action-row wrap" aria-label={t('项目材料', 'Project materials')}>
+        <a className="text-link" href="/submission/guide.html">{t('评委快速查看', 'Reviewer guide')} ↗</a>
+        <a className="text-link" href="/submission/MissionGuard-Pitch.pptx" download>{t('下载路演幻灯片', 'Download pitch')} ↓</a>
+        <a className="text-link" href="/submission/MissionGuard-Demo.mp4" target="_blank" rel="noreferrer">{t('观看证据讲解', 'Watch evidence walkthrough')} ↗</a>
+      </nav>
       <Tabs value={tab} onValueChange={(v) => setTab(String(v))}>
         <TabsList className="console-tabs" variant="line">
           <TabsTrigger value="task">
@@ -793,6 +799,7 @@ export default function Home() {
             </div>
           </div>
           <FujiEvidence language={lang} />
+          <ModelEvidence language={lang} />
           <section className="ledger evidence-tests">
             <h2>{t('真实数据与本地复现', 'Real data and local reproduction')}</h2>
             <p className="notice">
